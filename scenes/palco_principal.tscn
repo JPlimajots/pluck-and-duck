@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://1jlamsjrhp8q" path="res://assets/Stall/curtain_top.png" id="6_76are"]
 [ext_resource type="PackedScene" uid="uid://drd3u8s0iouha" path="res://scenes/mira.tscn" id="13_trvxo"]
 [ext_resource type="PackedScene" uid="uid://sjnduc3s8ruy" path="res://scenes/pato.tscn" id="14_ogqwy"]
+[ext_resource type="FontFile" uid="uid://dsvjwo5mfchws" path="res://assets/fonts/PressStart2P-Regular.ttf" id="15_1buyy"]
+[ext_resource type="FontFile" uid="uid://ctk2u56gx6xp3" path="res://assets/fonts/VT323-Regular.ttf" id="16_ebexg"]
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
 script = ExtResource("1_76are")
@@ -221,4 +223,29 @@ autostart = true
 [node name="PontoDeSpawn" type="Marker2D" parent="." unique_id=455693146]
 position = Vector2(-128, 500)
 
+[node name="Interface" type="CanvasLayer" parent="." unique_id=326853103]
+
+[node name="TextoPontos" type="Label" parent="Interface" unique_id=1787395705]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -587.0
+offset_top = 81.0
+offset_right = -467.0
+offset_bottom = 121.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("15_1buyy")
+theme_override_font_sizes/font_size = 40
+text = "000"
+
+[node name="TextoTempo" type="Label" parent="Interface" unique_id=1625737883]
+offset_left = 611.0
+offset_top = 124.0
+offset_right = 683.0
+offset_bottom = 184.0
+theme_override_fonts/font = ExtResource("16_ebexg")
+theme_override_font_sizes/font_size = 60
+text = "000"
+
+[connection signal="alvo_atingido" from="Mira" to="." method="_on_mira_alvo_atingido"]
 [connection signal="timeout" from="GeradorDePatos" to="." method="_on_gerador_de_patos_timeout"]

@@ -4,6 +4,7 @@ class_name  Arma
 static var municao_max: int = 3
 static var municao_atual: int = municao_max
 
+signal alvo_atingido(pontos_ganhos: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,4 +33,5 @@ func acertou_tiro_pato():
 	for area in areas:
 		if area.is_in_group("patos"):
 			area.morrer()
+			alvo_atingido.emit(10)
 			break

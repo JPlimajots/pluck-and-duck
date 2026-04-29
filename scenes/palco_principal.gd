@@ -2,6 +2,10 @@ extends Node2D
 
 @export var cena_pato: PackedScene
 
+var pontuacao_atual: int = 0
+var tempo_restante: float = 60.0
+var jogo_ativo: bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Cenario/BGwood.z_index = GameLayers.Layers.PAREDE
@@ -21,10 +25,28 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if jogo_ativo:
+		tempo_restante -= delta
+		var segundos = int(ceil(tempo_restante))
+		$Interface/TextoTempo.text = "%02d" % segundos
+		if tempo_restante <= 0:
+			finaliza_jogo()
 
 
 func _on_gerador_de_patos_timeout() -> void:
 	var novo_pato = cena_pato.instantiate()
 	novo_pato.position = $PontoDeSpawn.position
 	add_child(novo_pato)
+
+
+func _on_mira_alvo_atingido(pontos_ganhos: int) -> void:
+	pontuacao_atual += pontos_ganhos
+	$Interface/TextoPontos.text = str(pontuacao_atual)
+
+
+func finaliza_jogo():
+	jogo_ativo = false
+	tempo_restante = 0
+	$Interface/TextoTempo.text = "00"
+	$GeradorDePatos.stop()
+	print("FIM DE JOGO! Pontuação Final: ", pontuacao_atual)
