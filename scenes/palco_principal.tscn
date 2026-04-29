@@ -17,6 +17,7 @@
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
 script = ExtResource("1_76are")
+cena_pato = ExtResource("14_ogqwy")
 
 [node name="Cenario" type="Control" parent="." unique_id=242326829]
 layout_mode = 3
@@ -187,10 +188,10 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -6.0
-offset_top = 333.0
-offset_right = 41.0
-offset_bottom = 359.0
+offset_left = -7.0
+offset_top = 349.0
+offset_right = 40.0
+offset_bottom = 375.0
 grow_vertical = 2
 texture = ExtResource("5_j61tm")
 stretch_mode = 6
@@ -200,10 +201,10 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 1238.0
-offset_top = 333.0
-offset_right = 1285.0
-offset_bottom = 359.0
+offset_left = 1240.0
+offset_top = 349.0
+offset_right = 1287.0
+offset_bottom = 375.0
 grow_vertical = 2
 texture = ExtResource("5_j61tm")
 stretch_mode = 6
@@ -212,3 +213,12 @@ stretch_mode = 6
 position = Vector2(638, 246)
 
 [node name="Pato" parent="." unique_id=781287369 instance=ExtResource("14_ogqwy")]
+
+[node name="GeradorDePatos" type="Timer" parent="." unique_id=2001983737]
+wait_time = 2.0
+autostart = true
+
+[node name="PontoDeSpawn" type="Marker2D" parent="." unique_id=455693146]
+position = Vector2(-128, 500)
+
+[connection signal="timeout" from="GeradorDePatos" to="." method="_on_gerador_de_patos_timeout"]

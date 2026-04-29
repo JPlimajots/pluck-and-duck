@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var cena_pato: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,3 +22,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_gerador_de_patos_timeout() -> void:
+	var novo_pato = cena_pato.instantiate()
+	novo_pato.position = $PontoDeSpawn.position
+	add_child(novo_pato)
