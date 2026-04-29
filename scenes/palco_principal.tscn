@@ -1,0 +1,214 @@
+[gd_scene format=3 uid="uid://orm2jnfl0r1f"]
+
+[ext_resource type="Texture2D" uid="uid://dtf5k2ini6qcc" path="res://assets/Stall/bg_wood.png" id="1_21x3l"]
+[ext_resource type="Script" uid="uid://cqhwb6ni3nl2x" path="res://scenes/palco_principal.gd" id="1_76are"]
+[ext_resource type="Texture2D" uid="uid://c64arg2rjem2w" path="res://assets/Stall/bg_red.png" id="2_d7mh6"]
+[ext_resource type="Texture2D" uid="uid://b2dg3kjlqtflk" path="res://assets/Stall/tree_oak.png" id="2_rsoic"]
+[ext_resource type="Texture2D" uid="uid://dp7h4kl4qopjp" path="res://assets/Stall/curtain_straight.png" id="2_u6jbp"]
+[ext_resource type="Texture2D" uid="uid://bjp4f561otq3d" path="res://assets/Stall/grass2.png" id="2_vj5tf"]
+[ext_resource type="Texture2D" uid="uid://cgv3sckvs1dyi" path="res://assets/Stall/water2.png" id="3_j7smh"]
+[ext_resource type="Texture2D" uid="uid://bhmwbg5oohmrv" path="res://assets/Stall/curtain.png" id="3_spwae"]
+[ext_resource type="Texture2D" uid="uid://c3svalpkmxdik" path="res://assets/Stall/tree_pine.png" id="4_76are"]
+[ext_resource type="Texture2D" uid="uid://dupu2q3tom1hg" path="res://assets/Stall/water1.png" id="4_rsoic"]
+[ext_resource type="Texture2D" uid="uid://dvgreq6i8x43p" path="res://assets/Stall/curtain_rope.png" id="5_j61tm"]
+[ext_resource type="Texture2D" uid="uid://1jlamsjrhp8q" path="res://assets/Stall/curtain_top.png" id="6_76are"]
+[ext_resource type="PackedScene" uid="uid://drd3u8s0iouha" path="res://scenes/mira.tscn" id="13_trvxo"]
+[ext_resource type="PackedScene" uid="uid://sjnduc3s8ruy" path="res://scenes/pato.tscn" id="14_ogqwy"]
+
+[node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
+script = ExtResource("1_76are")
+
+[node name="Cenario" type="Control" parent="." unique_id=242326829]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BGwood" type="TextureRect" parent="Cenario" unique_id=43851121]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 1427.0
+offset_bottom = 835.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_21x3l")
+stretch_mode = 1
+
+[node name="tree_oak" type="TextureRect" parent="Cenario" unique_id=90934805]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -174.0
+offset_right = 198.0
+offset_bottom = 557.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rsoic")
+stretch_mode = 5
+
+[node name="grass" type="TextureRect" parent="Cenario" unique_id=1362873893]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -331.0
+offset_top = 338.0
+offset_right = 1556.0
+offset_bottom = 554.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vj5tf")
+stretch_mode = 1
+
+[node name="tree_pine" type="TextureRect" parent="Cenario" unique_id=911464174]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 984.0
+offset_top = 61.0
+offset_right = 1327.0
+offset_bottom = 490.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_76are")
+stretch_mode = 5
+
+[node name="water_back" type="TextureRect" parent="Cenario" unique_id=1874543366]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -881.0
+offset_top = 411.0
+offset_right = 2140.0
+offset_bottom = 651.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_j7smh")
+stretch_mode = 1
+
+[node name="water_front" type="TextureRect" parent="Cenario" unique_id=405213935]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = 460.0
+offset_right = 1427.0
+offset_bottom = 684.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_rsoic")
+stretch_mode = 1
+
+[node name="balcao" type="TextureRect" parent="Cenario" unique_id=993469298]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1411.0
+offset_top = 555.0
+offset_right = 1692.9375
+offset_bottom = 2105.5137
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 1.5707964
+texture = ExtResource("2_d7mh6")
+stretch_mode = 1
+flip_h = true
+
+[node name="curtain_top" type="TextureRect" parent="Cenario" unique_id=1892946474]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -271.0
+offset_top = 61.0
+offset_right = 2100.0
+offset_bottom = 124.0
+grow_horizontal = 2
+texture = ExtResource("6_76are")
+stretch_mode = 1
+
+[node name="curtain_right" type="TextureRect" parent="Cenario" unique_id=283706428]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1043.0
+offset_top = 41.0
+offset_right = 1241.0
+offset_bottom = 683.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_spwae")
+stretch_mode = 6
+flip_h = true
+
+[node name="curtain_left" type="TextureRect" parent="Cenario" unique_id=1357277914]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 41.0
+offset_right = 198.0
+offset_bottom = 683.0
+grow_vertical = 2
+texture = ExtResource("3_spwae")
+stretch_mode = 6
+
+[node name="curtain_straight" type="TextureRect" parent="Cenario" unique_id=690312241]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -128.0
+offset_right = 1424.0
+offset_bottom = 80.0
+grow_horizontal = 2
+texture = ExtResource("2_u6jbp")
+stretch_mode = 1
+
+[node name="curtain_rope_left" type="TextureRect" parent="Cenario" unique_id=1217195606]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = 333.0
+offset_right = 41.0
+offset_bottom = 359.0
+grow_vertical = 2
+texture = ExtResource("5_j61tm")
+stretch_mode = 6
+
+[node name="curtain_rope_right" type="TextureRect" parent="Cenario" unique_id=1050495110]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 1238.0
+offset_top = 333.0
+offset_right = 1285.0
+offset_bottom = 359.0
+grow_vertical = 2
+texture = ExtResource("5_j61tm")
+stretch_mode = 6
+
+[node name="Mira" parent="." unique_id=1777561921 instance=ExtResource("13_trvxo")]
+position = Vector2(638, 246)
+
+[node name="Pato" parent="." unique_id=781287369 instance=ExtResource("14_ogqwy")]

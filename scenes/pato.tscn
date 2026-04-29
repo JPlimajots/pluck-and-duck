@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://sjnduc3s8ruy"]
+
+[ext_resource type="Texture2D" uid="uid://1rvf2sagj3n5" path="res://assets/Objects/duck_outline_target_brown.png" id="1_1cf7q"]
+[ext_resource type="Script" uid="uid://lwj0a3t1it0j" path="res://scripts/pato.gd" id="1_j5xjf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j5xjf"]
+radius = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gn7h2"]
+radius = 30.0
+height = 102.0
+
+[node name="Pato" type="Area2D" unique_id=781287369 groups=["patos"]]
+position = Vector2(-2, 351)
+script = ExtResource("1_j5xjf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1493090595]
+texture = ExtResource("1_1cf7q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1577168249]
+position = Vector2(15, -27)
+shape = SubResource("CircleShape2D_j5xjf")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=166446369]
+position = Vector2(-6, 20)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_gn7h2")

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://drd3u8s0iouha"]
+
+[ext_resource type="Texture2D" uid="uid://d0ylxbedhiosn" path="res://assets/HUD/crosshair_outline_large.png" id="1_vgtru"]
+[ext_resource type="Script" uid="uid://dhnoune1vtsls" path="res://scripts/mira.gd" id="1_y581g"]
+[ext_resource type="AudioStream" uid="uid://p3qbner0oph8" path="res://assets/audio/poupou.wav" id="3_hcfyb"]
+[ext_resource type="AudioStream" uid="uid://da6og46w0r2ct" path="res://assets/audio/click.wav" id="4_acfey"]
+[ext_resource type="AudioStream" uid="uid://csxoo4agija5j" path="res://assets/audio/recarga.wav" id="5_ex0sk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hcfyb"]
+radius = 11.0
+
+[node name="Mira" type="Area2D" unique_id=1209529082]
+script = ExtResource("1_y581g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1572133656]
+shape = SubResource("CircleShape2D_hcfyb")
+
+[node name="mira" type="Sprite2D" parent="." unique_id=667896464]
+texture = ExtResource("1_vgtru")
+
+[node name="SomTiro" type="AudioStreamPlayer" parent="." unique_id=1547521491]
+stream = ExtResource("3_hcfyb")
+max_polyphony = 3
+
+[node name="SomVazio" type="AudioStreamPlayer" parent="." unique_id=1533211922]
+stream = ExtResource("4_acfey")
+max_polyphony = 10
+
+[node name="SomRecarga" type="AudioStreamPlayer" parent="." unique_id=1541737912]
+stream = ExtResource("5_ex0sk")

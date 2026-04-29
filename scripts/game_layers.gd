@@ -1,0 +1,22 @@
+extends Node
+
+enum Layers {
+	PAREDE = -10,
+	ALVO = -5, 
+	ARVORE_OAK = -5,
+	GRAMA = -4,
+	ARVORE_PINE = -3,
+	PATO_TRAS = -2,
+	AGUA_TRAS = -1,
+	PATO_FRENTE = 0,
+	AGUA_FRENTE = 1,
+	BALCAO = 2, 
+	CORTINA_TOP = 2,
+	CORTINA_LEFT = 3, 
+	CORTINA_RIGHT = 3,
+	CORTINA_STRAIGHT = 4, 
+	CORTINA_ROPE = 4,
+	MIRA = 5,
+	UI = 5,
+	HUD = 5
+}
