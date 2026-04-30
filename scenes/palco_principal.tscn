@@ -14,8 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://1jlamsjrhp8q" path="res://assets/Stall/curtain_top.png" id="6_76are"]
 [ext_resource type="PackedScene" uid="uid://drd3u8s0iouha" path="res://scenes/mira.tscn" id="13_trvxo"]
 [ext_resource type="PackedScene" uid="uid://sjnduc3s8ruy" path="res://scenes/pato.tscn" id="14_ogqwy"]
-[ext_resource type="FontFile" uid="uid://dsvjwo5mfchws" path="res://assets/fonts/PressStart2P-Regular.ttf" id="15_1buyy"]
-[ext_resource type="FontFile" uid="uid://ctk2u56gx6xp3" path="res://assets/fonts/VT323-Regular.ttf" id="16_ebexg"]
+[ext_resource type="FontFile" uid="uid://b2mf25l5dvmn5" path="res://assets/fonts/Bumper Pixel Stroke.ttf" id="15_1buyy"]
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
 script = ExtResource("1_76are")
@@ -243,8 +242,8 @@ offset_left = 611.0
 offset_top = 124.0
 offset_right = 683.0
 offset_bottom = 184.0
-theme_override_fonts/font = ExtResource("16_ebexg")
-theme_override_font_sizes/font_size = 60
+theme_override_fonts/font = ExtResource("15_1buyy")
+theme_override_font_sizes/font_size = 40
 text = "000"
 
 [connection signal="alvo_atingido" from="Mira" to="." method="_on_mira_alvo_atingido"]

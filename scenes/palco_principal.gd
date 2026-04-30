@@ -29,6 +29,7 @@ func _process(delta: float) -> void:
 		tempo_restante -= delta
 		var segundos = int(ceil(tempo_restante))
 		$Interface/TextoTempo.text = "%02d" % segundos
+		$GeradorDePatos.wait_time = remap(tempo_restante, 60.0, 0.0, 2.0, 0.5)
 		if tempo_restante <= 0:
 			finaliza_jogo()
 
@@ -36,6 +37,8 @@ func _process(delta: float) -> void:
 func _on_gerador_de_patos_timeout() -> void:
 	var novo_pato = cena_pato.instantiate()
 	novo_pato.position = $PontoDeSpawn.position
+	var velocidade_dificil = remap(tempo_restante, 60.0, 0.0, 150.0, 350.0)
+	novo_pato.velocidade = velocidade_dificil
 	add_child(novo_pato)
 
 
