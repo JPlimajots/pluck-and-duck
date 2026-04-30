@@ -213,14 +213,12 @@ stretch_mode = 6
 [node name="Mira" parent="." unique_id=1777561921 instance=ExtResource("13_trvxo")]
 position = Vector2(638, 246)
 
-[node name="Pato" parent="." unique_id=781287369 instance=ExtResource("14_ogqwy")]
-
 [node name="GeradorDePatos" type="Timer" parent="." unique_id=2001983737]
 wait_time = 2.0
 autostart = true
 
 [node name="PontoDeSpawn" type="Marker2D" parent="." unique_id=455693146]
-position = Vector2(-128, 500)
+position = Vector2(-128, 454)
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=326853103]
 

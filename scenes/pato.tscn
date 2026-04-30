@@ -2,6 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://1rvf2sagj3n5" path="res://assets/Objects/duck_outline_target_brown.png" id="1_1cf7q"]
 [ext_resource type="Script" uid="uid://lwj0a3t1it0j" path="res://scripts/pato.gd" id="1_j5xjf"]
+[ext_resource type="Texture2D" uid="uid://bekcgv1kvybe2" path="res://assets/Objects/stick_wood_outline_broken.png" id="2_2jdip"]
+[ext_resource type="Texture2D" uid="uid://osy4iiiridtk" path="res://assets/Objects/stick_wood_outline.png" id="3_4rrr4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x7n1l"]
+size = Vector2(20, 109)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j5xjf"]
 radius = 26.0
@@ -13,6 +18,17 @@ height = 102.0
 [node name="Pato" type="Area2D" unique_id=781287369 groups=["patos"]]
 position = Vector2(-2, 351)
 script = ExtResource("1_j5xjf")
+textura_tabua_quebrada = ExtResource("2_2jdip")
+
+[node name="AreaTabua" type="Area2D" parent="." unique_id=1669856049 groups=["tabuas"]]
+position = Vector2(-4, 97)
+
+[node name="Sprite2D" type="Sprite2D" parent="AreaTabua" unique_id=187726943]
+texture = ExtResource("3_4rrr4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaTabua" unique_id=1744668239]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_x7n1l")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1493090595]
 texture = ExtResource("1_1cf7q")
