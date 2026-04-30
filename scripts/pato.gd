@@ -1,6 +1,7 @@
 extends Area2D
 
 @export var textura_tabua_quebrada: Texture2D
+@export var textura_pato_costas: Texture2D
 
 var velocidade: float = 150.0 
 
@@ -15,8 +16,13 @@ func _process(delta: float) -> void:
 
 
 func morrer():
+	$CollisionShape2D.set_deferred("disabled", true)
+	$DobradicaPivo/AreaTabua/CollisionShape2D.set_deferred("disabled", true)
+	if randf() > 0.5:
+		animar_giro_180()
+	else:
+		animar_queda_tras()
 	remove_from_group("patos")
-	$Sprite2D.texture = load("res://assets/Objects/duck_outline_back.png")
 	await get_tree().create_timer(0.6).timeout
 	queue_free()
 
@@ -26,11 +32,29 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 
 func quebrar_tabua():
-	$AreaTabua/Sprite2D.texture = textura_tabua_quebrada
+	$DobradicaPivo/AreaTabua/Sprite2D.texture = textura_tabua_quebrada
 	$CollisionShape2D.set_deferred("disabled", true)
 	$CollisionShape2D2.set_deferred("disabled", true)
-	$AreaTabua/CollisionShape2D.set_deferred("disabled", true)
+	$DobradicaPivo/AreaTabua/CollisionShape2D.set_deferred("disabled", true)
 	var tween = create_tween()
-	tween.tween_property($Sprite2D, "position:y", $Sprite2D.position.y - 100, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property($Sprite2D, "position:y", $Sprite2D.position.y + 400, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	tween.parallel().tween_property($Sprite2D, "rotation_degrees", 90.0, 0.8)
+	tween.tween_property($DobradicaPivo/Sprite2D, "position:y", $DobradicaPivo/Sprite2D.position.y - 100, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property($DobradicaPivo/Sprite2D, "position:y", $DobradicaPivo/Sprite2D.position.y + 400, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property($DobradicaPivo/Sprite2D, "rotation_degrees", 90.0, 0.8)
+
+
+func virar_de_costas():
+	$DobradicaPivo/Sprite2D.texture = textura_pato_costas
+	$DobradicaPivo/AreaTabua.show_behind_parent = false
+
+
+func animar_giro_180():
+	var tween = create_tween()
+	tween.tween_property(self, "scale:x", 0.0, 0.10).set_trans(Tween.TRANS_SINE)
+	tween.tween_callback(virar_de_costas)
+	tween.tween_property(self, "scale:x", -1.0, 0.10).set_trans(Tween.TRANS_SINE)
+
+
+func animar_queda_tras():
+	var tween = create_tween()
+	tween.tween_property($DobradicaPivo, "scale:y", 0.0, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(self, "modulate", Color(0.15, 0.15, 0.15, 1.0), 0.2)

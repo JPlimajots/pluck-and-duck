@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://lwj0a3t1it0j" path="res://scripts/pato.gd" id="1_j5xjf"]
 [ext_resource type="Texture2D" uid="uid://bekcgv1kvybe2" path="res://assets/Objects/stick_wood_outline_broken.png" id="2_2jdip"]
 [ext_resource type="Texture2D" uid="uid://osy4iiiridtk" path="res://assets/Objects/stick_wood_outline.png" id="3_4rrr4"]
+[ext_resource type="Texture2D" uid="uid://c350rakepsljp" path="res://assets/Objects/duck_outline_back.png" id="3_x7n1l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7n1l"]
 size = Vector2(20, 109)
@@ -19,19 +20,25 @@ height = 102.0
 position = Vector2(-2, 351)
 script = ExtResource("1_j5xjf")
 textura_tabua_quebrada = ExtResource("2_2jdip")
+textura_pato_costas = ExtResource("3_x7n1l")
 
-[node name="AreaTabua" type="Area2D" parent="." unique_id=1669856049 groups=["tabuas"]]
-position = Vector2(-4, 97)
+[node name="DobradicaPivo" type="Node2D" parent="." unique_id=2010598532]
+position = Vector2(-4, 161)
 
-[node name="Sprite2D" type="Sprite2D" parent="AreaTabua" unique_id=187726943]
+[node name="Sprite2D" type="Sprite2D" parent="DobradicaPivo" unique_id=1493090595]
+position = Vector2(4, -161)
+texture = ExtResource("1_1cf7q")
+
+[node name="AreaTabua" type="Area2D" parent="DobradicaPivo" unique_id=1669856049 groups=["tabuas"]]
+show_behind_parent = true
+position = Vector2(0, -64)
+
+[node name="Sprite2D" type="Sprite2D" parent="DobradicaPivo/AreaTabua" unique_id=187726943]
 texture = ExtResource("3_4rrr4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaTabua" unique_id=1744668239]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DobradicaPivo/AreaTabua" unique_id=1744668239]
 position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_x7n1l")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1493090595]
-texture = ExtResource("1_1cf7q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1577168249]
 position = Vector2(15, -27)

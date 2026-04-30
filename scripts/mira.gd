@@ -35,4 +35,4 @@ func acertou_tiro_pato():
 			area.morrer()
 			alvo_atingido.emit(10)
 		elif area.is_in_group("tabuas"):
-			area.get_parent().quebrar_tabua()
+			area.get_parent().get_parent().quebrar_tabua()
