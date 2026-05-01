@@ -34,5 +34,8 @@ func acertou_tiro_pato():
 		if area.is_in_group("patos"):
 			area.morrer()
 			alvo_atingido.emit(10)
+		elif area.is_in_group("alvos"):
+			area.morrer()
+			alvo_atingido.emit(50)
 		elif area.is_in_group("tabuas"):
 			area.get_parent().get_parent().quebrar_tabua()

@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var cena_alvo = preload("res://scenes/alvo.tscn")
 @export var cena_pato: PackedScene
 
 var pontuacao_atual: int = 0
@@ -29,6 +30,10 @@ func _process(delta: float) -> void:
 		tempo_restante -= delta
 		var segundos = int(ceil(tempo_restante))
 		$Interface/TextoTempo.text = "%02d" % segundos
+		if $GeradorAlvosGrama.is_stopped():
+			$GeradorAlvosGrama.start(randf_range(3.0, 8.0))
+		if $GeradorAlvosTeto.is_stopped():
+			$GeradorAlvosTeto.start(randf_range(3.0, 8.0))
 		if tempo_restante <= 0:
 			finaliza_jogo()
 
@@ -58,6 +63,7 @@ func finaliza_jogo():
 	tempo_restante = 0
 	$Interface/TextoTempo.text = "00"
 	$GeradorDePatos.stop()
+	$GeradorDePatosFundo.stop()
 	print("FIM DE JOGO! Pontuação Final: ", pontuacao_atual)
 
 
@@ -71,3 +77,29 @@ func _on_gerador_de_patos_fundo_timeout() -> void:
 	add_child(pato_fundo)
 	var base_fundo = remap(tempo_restante, 60.0, 0.0, 4.0, 1.2)
 	$GeradorDePatosFundo.wait_time = randf_range(base_fundo * 0.8, base_fundo * 1.5)
+
+
+func _on_gerador_alvos_grama_timeout() -> void:
+	var novo_alvo = cena_alvo.instantiate()
+	var x_aleatorio = randf_range(160.0, 1120.0)
+	novo_alvo.position = Vector2(x_aleatorio, $LinhaSpawnAlvosGrama.position.y)
+	novo_alvo.scale = Vector2(0.6, 0.6)
+	novo_alvo.z_index = GameLayers.Layers.ALVO
+	novo_alvo.tempo_de_vida = remap(tempo_restante, 60.0, 0.0, 3.0, 1.0)
+	add_child(novo_alvo)
+	var tempo_base_spawn = remap(tempo_restante, 60.0, 0.0, 10.0, 4.0)
+	$GeradorAlvosGrama.wait_time = randf_range(tempo_base_spawn * 0.8, tempo_base_spawn * 1.5)
+
+
+func _on_gerador_alvos_teto_timeout() -> void:
+	var novo_alvo = cena_alvo.instantiate()
+	var x_aleatorio = randf_range(256.0, 1024.0)
+	novo_alvo.position = Vector2(x_aleatorio, $LinhaSpawnAlvosTeto.position.y)
+	novo_alvo.scale = Vector2(0.6, 0.6)
+	novo_alvo.z_index = GameLayers.Layers.ALVO
+	novo_alvo.rotation_degrees = 180.0
+	novo_alvo.de_cabeca_para_baixo = true
+	novo_alvo.tempo_de_vida = remap(tempo_restante, 60.0, 0.0, 3.0, 1.0)
+	add_child(novo_alvo)
+	var tempo_base_spawn = remap(tempo_restante, 60.0, 0.0, 10.0, 4.0)
+	$GeradorAlvosTeto.wait_time = randf_range(tempo_base_spawn * 0.8, tempo_base_spawn * 15.)

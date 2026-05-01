@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://orm2jnfl0r1f"]
 
 [ext_resource type="Texture2D" uid="uid://dtf5k2ini6qcc" path="res://assets/Stall/bg_wood.png" id="1_21x3l"]
-[ext_resource type="Script" uid="uid://cqhwb6ni3nl2x" path="res://scenes/palco_principal.gd" id="1_76are"]
+[ext_resource type="Script" uid="uid://cqhwb6ni3nl2x" path="res://scripts/palco_principal.gd" id="1_76are"]
 [ext_resource type="Texture2D" uid="uid://c64arg2rjem2w" path="res://assets/Stall/bg_red.png" id="2_d7mh6"]
 [ext_resource type="Texture2D" uid="uid://b2dg3kjlqtflk" path="res://assets/Stall/tree_oak.png" id="2_rsoic"]
 [ext_resource type="Texture2D" uid="uid://dp7h4kl4qopjp" path="res://assets/Stall/curtain_straight.png" id="2_u6jbp"]
@@ -221,11 +221,21 @@ autostart = true
 wait_time = 2.0
 autostart = true
 
+[node name="GeradorAlvosGrama" type="Timer" parent="." unique_id=827133094]
+
+[node name="GeradorAlvosTeto" type="Timer" parent="." unique_id=1707063574]
+
 [node name="PontoDeSpawn" type="Marker2D" parent="." unique_id=455693146]
 position = Vector2(-128, 454)
 
 [node name="PontoDeSpawnFundo" type="Marker2D" parent="." unique_id=789762644]
 position = Vector2(-202, 418)
+
+[node name="LinhaSpawnAlvosGrama" type="Marker2D" parent="." unique_id=271930669]
+position = Vector2(0, 314)
+
+[node name="LinhaSpawnAlvosTeto" type="Marker2D" parent="." unique_id=1425428314]
+position = Vector2(0, 136)
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=326853103]
 
@@ -254,3 +264,5 @@ text = "000"
 [connection signal="alvo_atingido" from="Mira" to="." method="_on_mira_alvo_atingido"]
 [connection signal="timeout" from="GeradorDePatos" to="." method="_on_gerador_de_patos_timeout"]
 [connection signal="timeout" from="GeradorDePatosFundo" to="." method="_on_gerador_de_patos_fundo_timeout"]
+[connection signal="timeout" from="GeradorAlvosGrama" to="." method="_on_gerador_alvos_grama_timeout"]
+[connection signal="timeout" from="GeradorAlvosTeto" to="." method="_on_gerador_alvos_teto_timeout"]
