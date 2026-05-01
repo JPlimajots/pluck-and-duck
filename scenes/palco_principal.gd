@@ -26,13 +26,16 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if jogo_ativo:
-		var tempo_base_frente = remap(tempo_restante, 60.0, 0.0, 3.0, 0.8)
-		var tempo_base_fundo = remap(tempo_restante, 60.0, 0.0, 4.0, 1.2)
 		tempo_restante -= delta
 		var segundos = int(ceil(tempo_restante))
 		$Interface/TextoTempo.text = "%02d" % segundos
 		if tempo_restante <= 0:
 			finaliza_jogo()
+
+
+func _input(event: InputEvent):
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().quit()
 
 
 func _on_gerador_de_patos_timeout() -> void:

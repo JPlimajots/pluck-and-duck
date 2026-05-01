@@ -63,10 +63,11 @@ func virar_de_costas():
 
 
 func animar_giro_180():
+	var tamanho_origianl = abs(scale.x)
 	var tween = create_tween()
 	tween.tween_property(self, "scale:x", 0.0, 0.10).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(virar_de_costas)
-	tween.tween_property(self, "scale:x", -1.0, 0.10).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "scale:x", -tamanho_origianl, 0.10).set_trans(Tween.TRANS_SINE)
 
 
 func animar_queda_tras():
