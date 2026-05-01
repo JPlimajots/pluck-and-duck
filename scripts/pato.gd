@@ -2,17 +2,32 @@ extends Area2D
 
 @export var textura_tabua_quebrada: Texture2D
 @export var textura_pato_costas: Texture2D
+@export var amplitude_onda: float = 10.0
+@export var velocidade_onda: float = 5.0
+@export var angulo_pendulo: float = 15.0
+@export var velocidade_pendulo: float = 4.0
 
 var velocidade: float = 150.0 
+var tempo_decorrido: float = 0.0
+var y_inicial = 0.0
+var tem_onda: bool = false
+var tem_pendulo: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	y_inicial = position.y
+	tem_onda = randf() > 0.5
+	tem_pendulo = randf() > 0.5
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	position.x += delta * velocidade
+	tempo_decorrido += delta
+	if tem_onda:
+		position.y = y_inicial + (sin(tempo_decorrido * velocidade_onda) * amplitude_onda)
+	if tem_pendulo:
+		$DobradicaPivo.rotation_degrees = sin(tempo_decorrido * velocidade_pendulo) * angulo_pendulo 
 
 
 func morrer():
