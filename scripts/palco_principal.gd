@@ -7,6 +7,7 @@ extends Node2D
 @onready var cena_alvo = preload("res://scenes/alvo.tscn")
 @onready var cena_alvo_explosivo = preload("res://scenes/alvo_explosivo.tscn")
 @onready var cena_alvo_branco = preload("res://scenes/alvo_branco.tscn")
+@onready var cena_alvo_municao = preload("res://scenes/alvo_municao.tscn")
 @export var texture_bala_cheia: Texture2D
 @export var texture_bala_vazia: Texture2D
 
@@ -126,12 +127,14 @@ func _on_gerador_de_patos_fundo_timeout() -> void:
 func _on_gerador_alvos_grama_timeout() -> void:
 	var novo_alvo = null
 	var chance = randf()
-	if chance <= 0.70:
+	if chance <= 0.60:
 		novo_alvo = cena_alvo.instantiate()
-	elif chance <= 0.85:
+	elif chance <= 0.75:
 		novo_alvo = cena_alvo_branco.instantiate()
-	else:
+	elif chance <= 0.90:
 		novo_alvo = cena_alvo_explosivo.instantiate()
+	else:
+		novo_alvo = cena_alvo_municao.instantiate()
 	var x_aleatorio = randf_range(280.0, 1000.0)
 	novo_alvo.position = Vector2(x_aleatorio, $LinhaSpawnAlvosGrama.position.y)
 	novo_alvo.scale = Vector2(0.6, 0.6)

@@ -11,6 +11,7 @@ signal vida_perdida()
 signal explosao_acionada()
 signal congelamento_acionado()
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -30,9 +31,7 @@ func _input(event: InputEvent) -> void:
 			else:
 				$SomVazio.play()
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			municao_atual = municao_max
-			municao_alterada.emit(municao_atual)
-			$SomRecarga.play()
+			recarregar_arma()
 
 
 func acertou_tiro_pato():
@@ -54,8 +53,16 @@ func acertou_tiro_pato():
 				explosao_acionada.emit()
 			elif area.get("congelante") == true:
 				congelamento_acionado.emit()
+			elif area.get("recarrega_municao") == true:
+				recarregar_arma()
 			else:
 				alvo_atingido.emit(pontos_alvo)
 			area.morrer()
 		elif area.is_in_group("tabuas"):
 			area.get_parent().get_parent().quebrar_tabua()
+
+
+func recarregar_arma():
+	municao_atual = municao_max
+	municao_alterada.emit(municao_atual)
+	$SomRecarga.play()

@@ -7,6 +7,7 @@ extends Area2D
 @export var pontos_abate: int = 50
 @export var explosivo: bool = false
 @export var congelante: bool = false
+@export var recarrega_municao: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
