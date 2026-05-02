@@ -5,6 +5,7 @@ static var municao_max: int = 3
 static var municao_atual: int = municao_max
 
 signal alvo_atingido(pontos_ganhos: int)
+signal municao_alterada(quantidade_atual: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,12 +20,14 @@ func _input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if municao_atual > 0:
 				municao_atual -= 1
+				municao_alterada.emit(municao_atual)
 				$SomTiro.play()
 				acertou_tiro_pato()
 			else:
 				$SomVazio.play()
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			municao_atual = municao_max
+			municao_alterada.emit(municao_atual)
 			$SomRecarga.play()
 
 

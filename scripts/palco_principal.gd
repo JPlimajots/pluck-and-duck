@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var cena_alvo = preload("res://scenes/alvo.tscn")
 @export var cena_pato: PackedScene
+@export var texture_bala_cheia: Texture2D
+@export var texture_bala_vazia: Texture2D
 
 var pontuacao_atual: int = 0
 var tempo_restante: float = 60.0
@@ -22,7 +24,7 @@ func _ready() -> void:
 	$Cenario/curtain_straight.z_index = GameLayers.Layers.CORTINA_STRAIGHT
 	$Cenario/curtain_rope_left.z_index = GameLayers.Layers.CORTINA_ROPE
 	$Cenario/curtain_rope_right.z_index = GameLayers.Layers.CORTINA_ROPE
-	
+	$Mira.municao_alterada.connect(atualizar_interface_municao)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -64,6 +66,8 @@ func finaliza_jogo():
 	$Interface/TextoTempo.text = "00"
 	$GeradorDePatos.stop()
 	$GeradorDePatosFundo.stop()
+	$GeradorAlvosGrama.stop()
+	$GeradorAlvosTeto.stop()
 	print("FIM DE JOGO! Pontuação Final: ", pontuacao_atual)
 
 
@@ -81,7 +85,7 @@ func _on_gerador_de_patos_fundo_timeout() -> void:
 
 func _on_gerador_alvos_grama_timeout() -> void:
 	var novo_alvo = cena_alvo.instantiate()
-	var x_aleatorio = randf_range(160.0, 1120.0)
+	var x_aleatorio = randf_range(280.0, 1000.0)
 	novo_alvo.position = Vector2(x_aleatorio, $LinhaSpawnAlvosGrama.position.y)
 	novo_alvo.scale = Vector2(0.6, 0.6)
 	novo_alvo.z_index = GameLayers.Layers.ALVO
@@ -93,7 +97,7 @@ func _on_gerador_alvos_grama_timeout() -> void:
 
 func _on_gerador_alvos_teto_timeout() -> void:
 	var novo_alvo = cena_alvo.instantiate()
-	var x_aleatorio = randf_range(256.0, 1024.0)
+	var x_aleatorio = randf_range(280.0, 1000.0)
 	novo_alvo.position = Vector2(x_aleatorio, $LinhaSpawnAlvosTeto.position.y)
 	novo_alvo.scale = Vector2(0.6, 0.6)
 	novo_alvo.z_index = GameLayers.Layers.ALVO
@@ -102,4 +106,14 @@ func _on_gerador_alvos_teto_timeout() -> void:
 	novo_alvo.tempo_de_vida = remap(tempo_restante, 60.0, 0.0, 3.0, 1.0)
 	add_child(novo_alvo)
 	var tempo_base_spawn = remap(tempo_restante, 60.0, 0.0, 10.0, 4.0)
-	$GeradorAlvosTeto.wait_time = randf_range(tempo_base_spawn * 0.8, tempo_base_spawn * 15.)
+	$GeradorAlvosTeto.wait_time = randf_range(tempo_base_spawn * 0.8, tempo_base_spawn * 1.5)
+
+
+func atualizar_interface_municao(quantidade: int):
+	var container = $HUD/MarginContainer/MunicaoUI
+	for i in range(container.get_child_count()):
+		var icone_bala = container.get_child(i)
+		if i < quantidade:
+			icone_bala.texture = texture_bala_cheia
+		else:
+			icone_bala.texture = texture_bala_vazia

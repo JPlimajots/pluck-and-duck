@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bjp4f561otq3d" path="res://assets/Stall/grass2.png" id="2_vj5tf"]
 [ext_resource type="Texture2D" uid="uid://cgv3sckvs1dyi" path="res://assets/Stall/water2.png" id="3_j7smh"]
 [ext_resource type="Texture2D" uid="uid://bhmwbg5oohmrv" path="res://assets/Stall/curtain.png" id="3_spwae"]
+[ext_resource type="Texture2D" uid="uid://bqat60ja0g26n" path="res://assets/HUD/icon_bullet_empty_short.png" id="4_4qqe5"]
 [ext_resource type="Texture2D" uid="uid://c3svalpkmxdik" path="res://assets/Stall/tree_pine.png" id="4_76are"]
 [ext_resource type="Texture2D" uid="uid://dupu2q3tom1hg" path="res://assets/Stall/water1.png" id="4_rsoic"]
 [ext_resource type="Texture2D" uid="uid://dvgreq6i8x43p" path="res://assets/Stall/curtain_rope.png" id="5_j61tm"]
@@ -15,10 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://drd3u8s0iouha" path="res://scenes/mira.tscn" id="13_trvxo"]
 [ext_resource type="PackedScene" uid="uid://sjnduc3s8ruy" path="res://scenes/pato.tscn" id="14_ogqwy"]
 [ext_resource type="FontFile" uid="uid://b2mf25l5dvmn5" path="res://assets/fonts/Bumper Pixel Stroke.ttf" id="15_1buyy"]
+[ext_resource type="Texture2D" uid="uid://0uqm0mxe1yxq" path="res://assets/HUD/icon_bullet_gold_short.png" id="16_ebexg"]
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
 script = ExtResource("1_76are")
 cena_pato = ExtResource("14_ogqwy")
+texture_bala_cheia = ExtResource("16_ebexg")
+texture_bala_vazia = ExtResource("4_4qqe5")
 
 [node name="Cenario" type="Control" parent="." unique_id=242326829]
 layout_mode = 3
@@ -235,7 +239,7 @@ position = Vector2(-202, 418)
 position = Vector2(0, 314)
 
 [node name="LinhaSpawnAlvosTeto" type="Marker2D" parent="." unique_id=1425428314]
-position = Vector2(0, 136)
+position = Vector2(0, 152)
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=326853103]
 
@@ -260,6 +264,38 @@ offset_bottom = 184.0
 theme_override_fonts/font = ExtResource("15_1buyy")
 theme_override_font_sizes/font_size = 40
 text = "000"
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1519101987]
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD" unique_id=1829050536]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -76.0
+offset_right = -101.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MunicaoUI" type="HBoxContainer" parent="HUD/MarginContainer" unique_id=118736407]
+layout_mode = 2
+
+[node name="Bala1" type="TextureRect" parent="HUD/MarginContainer/MunicaoUI" unique_id=898709442]
+layout_mode = 2
+texture = ExtResource("16_ebexg")
+
+[node name="Bala2" type="TextureRect" parent="HUD/MarginContainer/MunicaoUI" unique_id=106438817]
+layout_mode = 2
+texture = ExtResource("16_ebexg")
+
+[node name="Bala3" type="TextureRect" parent="HUD/MarginContainer/MunicaoUI" unique_id=671818251]
+layout_mode = 2
+texture = ExtResource("16_ebexg")
 
 [connection signal="alvo_atingido" from="Mira" to="." method="_on_mira_alvo_atingido"]
 [connection signal="timeout" from="GeradorDePatos" to="." method="_on_gerador_de_patos_timeout"]
