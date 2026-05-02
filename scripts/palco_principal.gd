@@ -74,7 +74,7 @@ func _on_gerador_de_patos_timeout() -> void:
 	var chance = randf()
 	if chance <= 0.60:
 		novo_pato = cena_pato.instantiate()
-	elif chance <= 80:
+	elif chance <= 0.80:
 		novo_pato = cena_pato_branco.instantiate()
 	else:
 		novo_pato = cena_pato_inocente.instantiate()
@@ -134,7 +134,7 @@ func _on_gerador_alvos_grama_timeout() -> void:
 		novo_alvo = cena_alvo_branco.instantiate()
 	elif chance <= 0.80:
 		novo_alvo = cena_alvo_explosivo.instantiate()
-	elif chance <= 90:
+	elif chance <= 0.90:
 		novo_alvo = cena_alvo_municao.instantiate()
 	else:
 		novo_alvo = cena_alvo_frenzy.instantiate()

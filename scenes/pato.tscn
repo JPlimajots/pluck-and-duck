@@ -21,6 +21,7 @@ position = Vector2(-2, 351)
 script = ExtResource("1_j5xjf")
 textura_tabua_quebrada = ExtResource("2_2jdip")
 textura_pato_costas = ExtResource("3_x7n1l")
+velocidade = 200.0
 
 [node name="DobradicaPivo" type="Node2D" parent="." unique_id=2010598532]
 position = Vector2(-4, 161)

@@ -8,7 +8,7 @@ amplitude_onda = 25.0
 velocidade_onda = 10.0
 angulo_pendulo = 25.0
 velocidade_pendulo = 8.0
-velocidade = 250.0
+velocidade = 300.0
 pontos_abate = 20
 
 [node name="Sprite2D" parent="DobradicaPivo" parent_id_path=PackedInt32Array(2010598532) index="0" unique_id=1493090595]
