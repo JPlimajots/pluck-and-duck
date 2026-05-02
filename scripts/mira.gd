@@ -35,10 +35,12 @@ func acertou_tiro_pato():
 	var areas = get_overlapping_areas()
 	for area in areas:
 		if area.is_in_group("patos"):
+			var pontos = area.get("pontos_abate") if area.get("pontos_abate") != null else 10
 			area.morrer()
-			alvo_atingido.emit(10)
+			alvo_atingido.emit(pontos)
 		elif area.is_in_group("alvos"):
+			var pontos_alvo = area.get("pontos_abate") if area.get("pontos_abate") != null else 10
 			area.morrer()
-			alvo_atingido.emit(50)
+			alvo_atingido.emit(pontos_alvo)
 		elif area.is_in_group("tabuas"):
 			area.get_parent().get_parent().quebrar_tabua()

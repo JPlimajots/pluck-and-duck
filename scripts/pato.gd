@@ -6,8 +6,8 @@ extends Area2D
 @export var velocidade_onda: float = 5.0
 @export var angulo_pendulo: float = 15.0
 @export var velocidade_pendulo: float = 4.0
-
-var velocidade: float = 150.0 
+@export var velocidade: float = 150.0 
+@export var pontos_abate: int = 10
 var tempo_decorrido: float = 0.0
 var y_inicial = 0.0
 var tem_onda: bool = false

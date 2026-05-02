@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://brqcj0g3whuw6"]
+
+[ext_resource type="PackedScene" uid="uid://sjnduc3s8ruy" path="res://scenes/pato.tscn" id="1_xtxpo"]
+[ext_resource type="Texture2D" uid="uid://cv7qdg2nfvabq" path="res://assets/Objects/duck_outline_target_white.png" id="2_15ekb"]
+
+[node name="PatoBranco" unique_id=781287369 instance=ExtResource("1_xtxpo")]
+amplitude_onda = 25.0
+velocidade_onda = 10.0
+angulo_pendulo = 25.0
+velocidade_pendulo = 8.0
+velocidade = 250.0
+pontos_abate = 20
+
+[node name="Sprite2D" parent="DobradicaPivo" parent_id_path=PackedInt32Array(2010598532) index="0" unique_id=1493090595]
+texture = ExtResource("2_15ekb")

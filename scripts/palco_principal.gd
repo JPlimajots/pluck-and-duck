@@ -1,7 +1,8 @@
 extends Node2D
 
+@onready var cena_pato = preload("res://scenes/pato.tscn")
+@onready var cena_pato_branco = preload("res://scenes/pato_branco.tscn")
 @onready var cena_alvo = preload("res://scenes/alvo.tscn")
-@export var cena_pato: PackedScene
 @export var texture_bala_cheia: Texture2D
 @export var texture_bala_vazia: Texture2D
 
@@ -55,7 +56,12 @@ func _input(event: InputEvent):
 
 
 func _on_gerador_de_patos_timeout() -> void:
-	var novo_pato = cena_pato.instantiate()
+	var novo_pato = null
+	var chance = randf()
+	if chance <= 0.75:
+		novo_pato = cena_pato.instantiate()
+	else:
+		novo_pato = cena_pato_branco.instantiate()
 	novo_pato.position = $PontoDeSpawn.position
 	var velocidade_dificil = remap(tempo_restante, 60.0, 0.0, 150.0, 350.0)
 	novo_pato.velocidade = velocidade_dificil
@@ -81,13 +87,18 @@ func finaliza_jogo():
 
 
 func _on_gerador_de_patos_fundo_timeout() -> void:
-	var pato_fundo = cena_pato.instantiate()
-	pato_fundo.position = $PontoDeSpawnFundo.position
-	pato_fundo.scale = Vector2(0.7, 0.7)
-	pato_fundo.z_index = GameLayers.Layers.PATO_TRAS
+	var novo_pato = null
+	var chance = randf()
+	if chance <= 0.75:
+		novo_pato = cena_pato.instantiate()
+	else:
+		novo_pato = cena_pato_branco.instantiate()
+	novo_pato.position = $PontoDeSpawnFundo.position
+	novo_pato.scale = Vector2(0.7, 0.7)
+	novo_pato.z_index = GameLayers.Layers.PATO_TRAS
 	var velocidade_fundo = remap(tempo_restante, 60.0, 0.0, 100.0, 250.0)
-	pato_fundo.velocidade = velocidade_fundo
-	add_child(pato_fundo)
+	novo_pato.velocidade = velocidade_fundo
+	add_child(novo_pato)
 	var base_fundo = remap(tempo_restante, 60.0, 0.0, 4.0, 1.2)
 	$GeradorDePatosFundo.wait_time = randf_range(base_fundo * 0.8, base_fundo * 1.5)
 

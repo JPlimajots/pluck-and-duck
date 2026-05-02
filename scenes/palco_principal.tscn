@@ -14,14 +14,12 @@
 [ext_resource type="Texture2D" uid="uid://dvgreq6i8x43p" path="res://assets/Stall/curtain_rope.png" id="5_j61tm"]
 [ext_resource type="Texture2D" uid="uid://1jlamsjrhp8q" path="res://assets/Stall/curtain_top.png" id="6_76are"]
 [ext_resource type="PackedScene" uid="uid://drd3u8s0iouha" path="res://scenes/mira.tscn" id="13_trvxo"]
-[ext_resource type="PackedScene" uid="uid://sjnduc3s8ruy" path="res://scenes/pato.tscn" id="14_ogqwy"]
 [ext_resource type="FontFile" uid="uid://b2mf25l5dvmn5" path="res://assets/fonts/Bumper Pixel Stroke.ttf" id="15_1buyy"]
 [ext_resource type="Texture2D" uid="uid://0uqm0mxe1yxq" path="res://assets/HUD/icon_bullet_gold_short.png" id="16_ebexg"]
 [ext_resource type="Texture2D" uid="uid://u6olj2wru4js" path="res://assets/Objects/rifle.png" id="18_mybgg"]
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
 script = ExtResource("1_76are")
-cena_pato = ExtResource("14_ogqwy")
 texture_bala_cheia = ExtResource("16_ebexg")
 texture_bala_vazia = ExtResource("4_4qqe5")
 
