@@ -6,6 +6,7 @@ static var municao_atual: int = municao_max
 
 signal alvo_atingido(pontos_ganhos: int)
 signal municao_alterada(quantidade_atual: int)
+signal tempo_adicionado(tempo_ganho: float)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,6 +37,9 @@ func acertou_tiro_pato():
 	for area in areas:
 		if area.is_in_group("patos"):
 			var pontos = area.get("pontos_abate") if area.get("pontos_abate") != null else 10
+			var bonus = area.get("tempo_bonus") if area.get("tempo_bonus") != null else 0.0
+			if bonus > 0.0:
+				tempo_adicionado.emit(bonus)
 			area.morrer()
 			alvo_atingido.emit(pontos)
 		elif area.is_in_group("alvos"):

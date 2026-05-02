@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var cena_pato = preload("res://scenes/pato.tscn")
 @onready var cena_pato_branco = preload("res://scenes/pato_branco.tscn")
+@onready var cena_pato_amarelo = preload("res://scenes/pato_amarelo.tscn")
 @onready var cena_alvo = preload("res://scenes/alvo.tscn")
 @export var texture_bala_cheia: Texture2D
 @export var texture_bala_vazia: Texture2D
@@ -26,6 +27,7 @@ func _ready() -> void:
 	$Cenario/curtain_rope_left.z_index = GameLayers.Layers.CORTINA_ROPE
 	$Cenario/curtain_rope_right.z_index = GameLayers.Layers.CORTINA_ROPE
 	$Mira.municao_alterada.connect(atualizar_interface_municao)
+	$Mira.tempo_adicionado.connect(_on_tempo_adicionado)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -63,7 +65,8 @@ func _on_gerador_de_patos_timeout() -> void:
 	else:
 		novo_pato = cena_pato_branco.instantiate()
 	novo_pato.position = $PontoDeSpawn.position
-	var velocidade_dificil = remap(tempo_restante, 60.0, 0.0, 150.0, 350.0)
+	var velocidade_base = novo_pato.velocidade
+	var velocidade_dificil = remap(tempo_restante, 60.0, 0.0, velocidade_base, velocidade_base + 150.0)
 	novo_pato.velocidade = velocidade_dificil
 	add_child(novo_pato)
 	var base = remap(tempo_restante, 60.0, 0.0, 3.0, 0.8)
@@ -91,12 +94,15 @@ func _on_gerador_de_patos_fundo_timeout() -> void:
 	var chance = randf()
 	if chance <= 0.75:
 		novo_pato = cena_pato.instantiate()
-	else:
+	elif chance <= 0.90:
 		novo_pato = cena_pato_branco.instantiate()
+	else:
+		novo_pato = cena_pato_amarelo.instantiate()
 	novo_pato.position = $PontoDeSpawnFundo.position
 	novo_pato.scale = Vector2(0.7, 0.7)
 	novo_pato.z_index = GameLayers.Layers.PATO_TRAS
-	var velocidade_fundo = remap(tempo_restante, 60.0, 0.0, 100.0, 250.0)
+	var velocidade_base = novo_pato.velocidade
+	var velocidade_fundo = remap(tempo_restante, 60.0, 0.0, velocidade_base, velocidade_base + 200.0)
 	novo_pato.velocidade = velocidade_fundo
 	add_child(novo_pato)
 	var base_fundo = remap(tempo_restante, 60.0, 0.0, 4.0, 1.2)
@@ -137,3 +143,7 @@ func atualizar_interface_municao(quantidade: int):
 			icone_bala.texture = texture_bala_cheia
 		else:
 			icone_bala.texture = texture_bala_vazia
+
+
+func _on_tempo_adicionado(bonus: float):
+	tempo_restante += bonus
