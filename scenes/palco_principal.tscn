@@ -227,8 +227,6 @@ autostart = true
 
 [node name="GeradorAlvosGrama" type="Timer" parent="." unique_id=827133094]
 
-[node name="GeradorAlvosTeto" type="Timer" parent="." unique_id=1707063574]
-
 [node name="PontoDeSpawn" type="Marker2D" parent="." unique_id=455693146]
 position = Vector2(-128, 454)
 
@@ -237,9 +235,6 @@ position = Vector2(-202, 418)
 
 [node name="LinhaSpawnAlvosGrama" type="Marker2D" parent="." unique_id=271930669]
 position = Vector2(0, 314)
-
-[node name="LinhaSpawnAlvosTeto" type="Marker2D" parent="." unique_id=1425428314]
-position = Vector2(0, 152)
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=326853103]
 
@@ -333,4 +328,3 @@ offset = Vector2(40, -40)
 [connection signal="timeout" from="GeradorDePatos" to="." method="_on_gerador_de_patos_timeout"]
 [connection signal="timeout" from="GeradorDePatosFundo" to="." method="_on_gerador_de_patos_fundo_timeout"]
 [connection signal="timeout" from="GeradorAlvosGrama" to="." method="_on_gerador_alvos_grama_timeout"]
-[connection signal="timeout" from="GeradorAlvosTeto" to="." method="_on_gerador_alvos_teto_timeout"]

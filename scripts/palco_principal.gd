@@ -58,9 +58,7 @@ func _process(delta: float) -> void:
 			var segundos = int(ceil(tempo_restante))
 			$Interface/TextoTempo.text = "%02d" % segundos
 			if $GeradorAlvosGrama.is_stopped():
-				$GeradorAlvosGrama.start(randf_range(3.0, 8.0))
-			if $GeradorAlvosTeto.is_stopped():
-				$GeradorAlvosTeto.start(randf_range(3.0, 8.0))
+				$GeradorAlvosGrama.start(randf_range(1.5, 4.0))
 			if tempo_restante <= 0:
 				finaliza_jogo()
 			pass
@@ -102,7 +100,6 @@ func finaliza_jogo():
 	$GeradorDePatos.stop()
 	$GeradorDePatosFundo.stop()
 	$GeradorAlvosGrama.stop()
-	$GeradorAlvosTeto.stop()
 	print("FIM DE JOGO! Pontuação Final: ", pontuacao_atual)
 
 
@@ -147,22 +144,8 @@ func _on_gerador_alvos_grama_timeout() -> void:
 	novo_alvo.z_index = GameLayers.Layers.ALVO
 	novo_alvo.tempo_de_vida = remap(tempo_restante, 60.0, 0.0, 3.0, 1.0)
 	add_child(novo_alvo)
-	var tempo_base_spawn = remap(tempo_restante, 60.0, 0.0, 10.0, 4.0)
+	var tempo_base_spawn = remap(tempo_restante, 60.0, 0.0, 6.0, 2.0)
 	$GeradorAlvosGrama.wait_time = randf_range(tempo_base_spawn * 0.8, tempo_base_spawn * 1.5)
-
-
-func _on_gerador_alvos_teto_timeout() -> void:
-	var novo_alvo = cena_alvo.instantiate()
-	var x_aleatorio = randf_range(280.0, 1000.0)
-	novo_alvo.position = Vector2(x_aleatorio, $LinhaSpawnAlvosTeto.position.y)
-	novo_alvo.scale = Vector2(0.6, 0.6)
-	novo_alvo.z_index = GameLayers.Layers.ALVO
-	novo_alvo.rotation_degrees = 180.0
-	novo_alvo.de_cabeca_para_baixo = true
-	novo_alvo.tempo_de_vida = remap(tempo_restante, 60.0, 0.0, 3.0, 1.0)
-	add_child(novo_alvo)
-	var tempo_base_spawn = remap(tempo_restante, 60.0, 0.0, 10.0, 4.0)
-	$GeradorAlvosTeto.wait_time = randf_range(tempo_base_spawn * 0.8, tempo_base_spawn * 1.5)
 
 
 func atualizar_interface_municao(quantidade: int):
