@@ -11,6 +11,7 @@ Este é um projeto prático com foco acadêmico e de engenharia de software, cri
 ## 🎨 Créditos e Assets
 
 A construção visual deste projeto só foi possível graças à fantástica biblioteca de domínio público criada por **[Kenney](https://www.kenney.nl/)**. O seu trabalho é um recurso inestimável que impulsiona a comunidade de desenvolvedores independentes ao redor do mundo.
+* **Fonte BumperPixel - Community Pack:** Criada por **[JD Jimenez](https://jdjimenez.itch.io/)**.
 
 ## 🚀 Fases de Desenvolvimento (Roadmap)
 
