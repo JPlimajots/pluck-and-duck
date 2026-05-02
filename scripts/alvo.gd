@@ -5,6 +5,7 @@ extends Area2D
 @export var tempo_de_vida: float = 3.0
 @export var de_cabeca_para_baixo: bool = false
 @export var pontos_abate: int = 50
+@export var explosivo: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

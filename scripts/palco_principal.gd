@@ -5,6 +5,7 @@ extends Node2D
 @onready var cena_pato_amarelo = preload("res://scenes/pato_amarelo.tscn")
 @onready var cena_pato_inocente = preload("res://scenes/pato_inocente.tscn")
 @onready var cena_alvo = preload("res://scenes/alvo.tscn")
+@onready var cena_alvo_explosivo = preload("res://scenes/alvo_explosivo.tscn")
 @export var texture_bala_cheia: Texture2D
 @export var texture_bala_vazia: Texture2D
 
@@ -31,6 +32,7 @@ func _ready() -> void:
 	$Mira.municao_alterada.connect(atualizar_interface_municao)
 	$Mira.tempo_adicionado.connect(_on_tempo_adicionado)
 	$Mira.vida_perdida.connect(_on_vida_perdida)
+	$Mira.explosao_acionada.connect(_on_explosao_acionada)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -117,7 +119,12 @@ func _on_gerador_de_patos_fundo_timeout() -> void:
 
 
 func _on_gerador_alvos_grama_timeout() -> void:
-	var novo_alvo = cena_alvo.instantiate()
+	var novo_alvo = null
+	var chance = randf()
+	if chance <= 0.85:
+		novo_alvo = cena_alvo.instantiate()
+	else:
+		novo_alvo = cena_alvo_explosivo.instantiate()
 	var x_aleatorio = randf_range(280.0, 1000.0)
 	novo_alvo.position = Vector2(x_aleatorio, $LinhaSpawnAlvosGrama.position.y)
 	novo_alvo.scale = Vector2(0.6, 0.6)
@@ -163,3 +170,22 @@ func _on_vida_perdida():
 		patinho_ui.visible = false
 	if vidas_atuais <= 0:
 		print("GAME OVER!")
+
+
+func _on_explosao_acionada():
+	var flash = $HUD/FlashExplosao
+	var tween = create_tween()
+	tween.tween_property(flash, "modulate:a", 0.4, 0.05)
+	tween.tween_property(flash, "modulate:a", 0.0, 0.2)
+	var todos_os_patos = get_tree().get_nodes_in_group("patos")
+	for pato in todos_os_patos:
+		if pato.get("penaliza_vida") == true:
+			_on_vida_perdida()
+		else:
+			var pontos = pato.get("pontos_abate") if pato.get("pontos_abate") != null else 10
+			var bonus = pato.get("tempo_bonus") if pato.get("tempo_bonus") != null else 0.0
+			_on_mira_alvo_atingido(pontos)
+			if bonus > 0.0:
+				_on_tempo_adicionado(bonus)
+		if pato.has_method("morrer"):
+			pato.morrer()

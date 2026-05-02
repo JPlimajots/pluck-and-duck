@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://e6jjp8kqo16f"]
+
+[ext_resource type="PackedScene" uid="uid://cuvolge1xrvqi" path="res://scenes/alvo.tscn" id="1_0xf5v"]
+[ext_resource type="Texture2D" uid="uid://co3pknjuis7r5" path="res://assets/Objects/target_red3_outline.png" id="2_fmqdj"]
+
+[node name="AlvoExplosivo" unique_id=702047603 instance=ExtResource("1_0xf5v")]
+explosivo = true
+
+[node name="SpriteAlvo" parent="DobradicaPivo" parent_id_path=PackedInt32Array(545131686) index="0" unique_id=1688240942]
+texture = ExtResource("2_fmqdj")

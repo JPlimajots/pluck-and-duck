@@ -315,6 +315,14 @@ texture = ExtResource("17_mybgg")
 layout_mode = 2
 texture = ExtResource("17_mybgg")
 
+[node name="FlashExplosao" type="ColorRect" parent="HUD" unique_id=108141741]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="RifleVisual" type="Sprite2D" parent="HUD" unique_id=40248702]
 position = Vector2(500, 700)
 scale = Vector2(0.8, 0.8)

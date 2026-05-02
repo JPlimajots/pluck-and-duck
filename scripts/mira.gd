@@ -8,6 +8,7 @@ signal alvo_atingido(pontos_ganhos: int)
 signal municao_alterada(quantidade_atual: int)
 signal tempo_adicionado(tempo_ganho: float)
 signal vida_perdida()
+signal explosao_acionada()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,7 +49,10 @@ func acertou_tiro_pato():
 			area.morrer()
 		elif area.is_in_group("alvos"):
 			var pontos_alvo = area.get("pontos_abate") if area.get("pontos_abate") != null else 10
+			if area.get("explosivo") == true:
+				explosao_acionada.emit()
+			else:
+				alvo_atingido.emit(pontos_alvo)
 			area.morrer()
-			alvo_atingido.emit(pontos_alvo)
 		elif area.is_in_group("tabuas"):
 			area.get_parent().get_parent().quebrar_tabua()
