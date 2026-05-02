@@ -3,6 +3,7 @@ extends Node2D
 @onready var cena_pato = preload("res://scenes/pato.tscn")
 @onready var cena_pato_branco = preload("res://scenes/pato_branco.tscn")
 @onready var cena_pato_amarelo = preload("res://scenes/pato_amarelo.tscn")
+@onready var cena_pato_inocente = preload("res://scenes/pato_inocente.tscn")
 @onready var cena_alvo = preload("res://scenes/alvo.tscn")
 @export var texture_bala_cheia: Texture2D
 @export var texture_bala_vazia: Texture2D
@@ -10,6 +11,7 @@ extends Node2D
 var pontuacao_atual: int = 0
 var tempo_restante: float = 60.0
 var jogo_ativo: bool = true
+var vidas_atuais: int = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,6 +30,7 @@ func _ready() -> void:
 	$Cenario/curtain_rope_right.z_index = GameLayers.Layers.CORTINA_ROPE
 	$Mira.municao_alterada.connect(atualizar_interface_municao)
 	$Mira.tempo_adicionado.connect(_on_tempo_adicionado)
+	$Mira.vida_perdida.connect(_on_vida_perdida)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -60,10 +63,12 @@ func _input(event: InputEvent):
 func _on_gerador_de_patos_timeout() -> void:
 	var novo_pato = null
 	var chance = randf()
-	if chance <= 0.75:
+	if chance <= 0.60:
 		novo_pato = cena_pato.instantiate()
-	else:
+	elif chance <= 80:
 		novo_pato = cena_pato_branco.instantiate()
+	else:
+		novo_pato = cena_pato_inocente.instantiate()
 	novo_pato.position = $PontoDeSpawn.position
 	var velocidade_base = novo_pato.velocidade
 	var velocidade_dificil = remap(tempo_restante, 60.0, 0.0, velocidade_base, velocidade_base + 150.0)
@@ -92,10 +97,12 @@ func finaliza_jogo():
 func _on_gerador_de_patos_fundo_timeout() -> void:
 	var novo_pato = null
 	var chance = randf()
-	if chance <= 0.75:
+	if chance <= 0.60:
 		novo_pato = cena_pato.instantiate()
-	elif chance <= 0.90:
+	elif chance <= 0.75:
 		novo_pato = cena_pato_branco.instantiate()
+	elif chance <= 0.90:
+		novo_pato = cena_pato_inocente.instantiate()
 	else:
 		novo_pato = cena_pato_amarelo.instantiate()
 	novo_pato.position = $PontoDeSpawnFundo.position
@@ -147,3 +154,12 @@ func atualizar_interface_municao(quantidade: int):
 
 func _on_tempo_adicionado(bonus: float):
 	tempo_restante += bonus
+
+
+func _on_vida_perdida():
+	vidas_atuais -= 1
+	if vidas_atuais >= 0 and vidas_atuais < 3:
+		var patinho_ui = $HUD/ContainerVidas.get_child(vidas_atuais)
+		patinho_ui.visible = false
+	if vidas_atuais <= 0:
+		print("GAME OVER!")

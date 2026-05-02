@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://6linicyefhu8"]
+
+[ext_resource type="PackedScene" uid="uid://sjnduc3s8ruy" path="res://scenes/pato.tscn" id="1_krikn"]
+[ext_resource type="Texture2D" uid="uid://d4atbgyayt6d2" path="res://assets/Objects/duck_outline_brown.png" id="2_5cta8"]
+
+[node name="PatoInocente" unique_id=781287369 instance=ExtResource("1_krikn")]
+velocidade = 100.0
+pontos_abate = 0
+penaliza_vida = true
+
+[node name="Sprite2D" parent="DobradicaPivo" parent_id_path=PackedInt32Array(2010598532) index="0" unique_id=1493090595]
+texture = ExtResource("2_5cta8")

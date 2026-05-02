@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://drd3u8s0iouha" path="res://scenes/mira.tscn" id="13_trvxo"]
 [ext_resource type="FontFile" uid="uid://b2mf25l5dvmn5" path="res://assets/fonts/Bumper Pixel Stroke.ttf" id="15_1buyy"]
 [ext_resource type="Texture2D" uid="uid://0uqm0mxe1yxq" path="res://assets/HUD/icon_bullet_gold_short.png" id="16_ebexg"]
+[ext_resource type="Texture2D" uid="uid://bvmflabmuwvau" path="res://assets/HUD/icon_duck.png" id="17_mybgg"]
 [ext_resource type="Texture2D" uid="uid://u6olj2wru4js" path="res://assets/Objects/rifle.png" id="18_mybgg"]
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
@@ -295,6 +296,24 @@ texture = ExtResource("16_ebexg")
 [node name="Bala3" type="TextureRect" parent="HUD/MarginContainer/MunicaoUI" unique_id=671818251]
 layout_mode = 2
 texture = ExtResource("16_ebexg")
+
+[node name="ContainerVidas" type="HBoxContainer" parent="HUD" unique_id=970908049]
+offset_left = 1152.0
+offset_top = 88.0
+offset_right = 1262.0
+offset_bottom = 128.0
+
+[node name="Vida1" type="TextureRect" parent="HUD/ContainerVidas" unique_id=1328730072]
+layout_mode = 2
+texture = ExtResource("17_mybgg")
+
+[node name="Vida2" type="TextureRect" parent="HUD/ContainerVidas" unique_id=1458717616]
+layout_mode = 2
+texture = ExtResource("17_mybgg")
+
+[node name="Vida3" type="TextureRect" parent="HUD/ContainerVidas" unique_id=852763721]
+layout_mode = 2
+texture = ExtResource("17_mybgg")
 
 [node name="RifleVisual" type="Sprite2D" parent="HUD" unique_id=40248702]
 position = Vector2(500, 700)

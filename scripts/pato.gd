@@ -9,6 +9,7 @@ extends Area2D
 @export var velocidade: float = 150.0 
 @export var pontos_abate: int = 10
 @export var tempo_bonus: float = 0.0
+@export var penaliza_vida: bool = false
 var tempo_decorrido: float = 0.0
 var y_inicial = 0.0
 var tem_onda: bool = false
