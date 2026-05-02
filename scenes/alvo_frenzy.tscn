@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cu531ry8s8g56"]
+
+[ext_resource type="PackedScene" uid="uid://cuvolge1xrvqi" path="res://scenes/alvo.tscn" id="1_ambqa"]
+[ext_resource type="Texture2D" uid="uid://c8e0ubll056j0" path="res://assets/Objects/target_red2_outline.png" id="2_06jr0"]
+
+[node name="AlvoFrenzy" unique_id=702047603 instance=ExtResource("1_ambqa")]
+ativa_frenzy = true
+
+[node name="SpriteAlvo" parent="DobradicaPivo" parent_id_path=PackedInt32Array(545131686) index="0" unique_id=1688240942]
+texture = ExtResource("2_06jr0")

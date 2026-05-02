@@ -8,6 +8,7 @@ extends Node2D
 @onready var cena_alvo_explosivo = preload("res://scenes/alvo_explosivo.tscn")
 @onready var cena_alvo_branco = preload("res://scenes/alvo_branco.tscn")
 @onready var cena_alvo_municao = preload("res://scenes/alvo_municao.tscn")
+@onready var cena_alvo_frenzy = preload("res://scenes/alvo_frenzy.tscn")
 @export var texture_bala_cheia: Texture2D
 @export var texture_bala_vazia: Texture2D
 
@@ -16,6 +17,7 @@ var tempo_restante: float = 60.0
 var jogo_ativo: bool = true
 var vidas_atuais: int = 3
 var relogio_congelado: bool = false
+var multiplicador_de_pontos: int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,6 +39,7 @@ func _ready() -> void:
 	$Mira.vida_perdida.connect(_on_vida_perdida)
 	$Mira.explosao_acionada.connect(_on_explosao_acionada)
 	$Mira.congelamento_acionado.connect(_on_congelamento_acionado)
+	$Mira.frenzy_acionado.connect(_on_frenzy_acionado)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -87,7 +90,8 @@ func _on_gerador_de_patos_timeout() -> void:
 
 
 func _on_mira_alvo_atingido(pontos_ganhos: int) -> void:
-	pontuacao_atual += pontos_ganhos
+	var pontos_finais = pontos_ganhos * multiplicador_de_pontos
+	pontuacao_atual += pontos_finais
 	$Interface/TextoPontos.text = str(pontuacao_atual)
 
 
@@ -127,14 +131,16 @@ func _on_gerador_de_patos_fundo_timeout() -> void:
 func _on_gerador_alvos_grama_timeout() -> void:
 	var novo_alvo = null
 	var chance = randf()
-	if chance <= 0.60:
+	if chance <= 0.50:
 		novo_alvo = cena_alvo.instantiate()
-	elif chance <= 0.75:
+	elif chance <= 0.65:
 		novo_alvo = cena_alvo_branco.instantiate()
-	elif chance <= 0.90:
+	elif chance <= 0.80:
 		novo_alvo = cena_alvo_explosivo.instantiate()
-	else:
+	elif chance <= 90:
 		novo_alvo = cena_alvo_municao.instantiate()
+	else:
+		novo_alvo = cena_alvo_frenzy.instantiate()
 	var x_aleatorio = randf_range(280.0, 1000.0)
 	novo_alvo.position = Vector2(x_aleatorio, $LinhaSpawnAlvosGrama.position.y)
 	novo_alvo.scale = Vector2(0.6, 0.6)
@@ -213,3 +219,11 @@ func _on_congelamento_acionado():
 	$GeradorDePatosFundo.paused = false
 	$GeradorAlvosGrama.paused = false
 	get_tree().call_group("patos", "descongelar")
+
+
+func _on_frenzy_acionado():
+	multiplicador_de_pontos = 2
+	$Interface/TextoPontos.modulate = Color(1, 0.8, 0)
+	await get_tree().create_timer(5.0).timeout
+	multiplicador_de_pontos = 1
+	$Interface/TextoPontos.modulate = Color(1, 1, 1)

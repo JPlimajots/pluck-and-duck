@@ -10,7 +10,7 @@ signal tempo_adicionado(tempo_ganho: float)
 signal vida_perdida()
 signal explosao_acionada()
 signal congelamento_acionado()
-
+signal frenzy_acionado()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -55,6 +55,8 @@ func acertou_tiro_pato():
 				congelamento_acionado.emit()
 			elif area.get("recarrega_municao") == true:
 				recarregar_arma()
+			elif area.get("ativa_frenzy") == true:
+				frenzy_acionado.emit()
 			else:
 				alvo_atingido.emit(pontos_alvo)
 			area.morrer()

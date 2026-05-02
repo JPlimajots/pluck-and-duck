@@ -8,6 +8,7 @@ extends Area2D
 @export var explosivo: bool = false
 @export var congelante: bool = false
 @export var recarrega_municao: bool = false
+@export var ativa_frenzy: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
