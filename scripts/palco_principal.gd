@@ -6,6 +6,7 @@ extends Node2D
 @onready var cena_pato_inocente = preload("res://scenes/pato_inocente.tscn")
 @onready var cena_alvo = preload("res://scenes/alvo.tscn")
 @onready var cena_alvo_explosivo = preload("res://scenes/alvo_explosivo.tscn")
+@onready var cena_alvo_branco = preload("res://scenes/alvo_branco.tscn")
 @export var texture_bala_cheia: Texture2D
 @export var texture_bala_vazia: Texture2D
 
@@ -13,6 +14,7 @@ var pontuacao_atual: int = 0
 var tempo_restante: float = 60.0
 var jogo_ativo: bool = true
 var vidas_atuais: int = 3
+var relogio_congelado: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,6 +35,7 @@ func _ready() -> void:
 	$Mira.tempo_adicionado.connect(_on_tempo_adicionado)
 	$Mira.vida_perdida.connect(_on_vida_perdida)
 	$Mira.explosao_acionada.connect(_on_explosao_acionada)
+	$Mira.congelamento_acionado.connect(_on_congelamento_acionado)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -46,15 +49,17 @@ func _process(delta: float) -> void:
 		angulo_alvo = -angulo_alvo
 	$HUD/RifleVisual.rotation_degrees = lerp($HUD/RifleVisual.rotation_degrees, angulo_alvo, 10.0 * delta)	
 	if jogo_ativo:
-		tempo_restante -= delta
-		var segundos = int(ceil(tempo_restante))
-		$Interface/TextoTempo.text = "%02d" % segundos
-		if $GeradorAlvosGrama.is_stopped():
-			$GeradorAlvosGrama.start(randf_range(3.0, 8.0))
-		if $GeradorAlvosTeto.is_stopped():
-			$GeradorAlvosTeto.start(randf_range(3.0, 8.0))
-		if tempo_restante <= 0:
-			finaliza_jogo()
+		if not relogio_congelado:
+			tempo_restante -= delta
+			var segundos = int(ceil(tempo_restante))
+			$Interface/TextoTempo.text = "%02d" % segundos
+			if $GeradorAlvosGrama.is_stopped():
+				$GeradorAlvosGrama.start(randf_range(3.0, 8.0))
+			if $GeradorAlvosTeto.is_stopped():
+				$GeradorAlvosTeto.start(randf_range(3.0, 8.0))
+			if tempo_restante <= 0:
+				finaliza_jogo()
+			pass
 
 
 func _input(event: InputEvent):
@@ -121,8 +126,10 @@ func _on_gerador_de_patos_fundo_timeout() -> void:
 func _on_gerador_alvos_grama_timeout() -> void:
 	var novo_alvo = null
 	var chance = randf()
-	if chance <= 0.85:
+	if chance <= 0.70:
 		novo_alvo = cena_alvo.instantiate()
+	elif chance <= 0.85:
+		novo_alvo = cena_alvo_branco.instantiate()
 	else:
 		novo_alvo = cena_alvo_explosivo.instantiate()
 	var x_aleatorio = randf_range(280.0, 1000.0)
@@ -189,3 +196,17 @@ func _on_explosao_acionada():
 				_on_tempo_adicionado(bonus)
 		if pato.has_method("morrer"):
 			pato.morrer()
+
+
+func _on_congelamento_acionado():
+	relogio_congelado = true
+	$GeradorDePatos.paused = true
+	$GeradorDePatosFundo.paused = true
+	$GeradorAlvosGrama.paused = true
+	get_tree().call_group("patos", "congelar")
+	await get_tree().create_timer(3.5).timeout
+	relogio_congelado = false
+	$GeradorDePatos.paused = false
+	$GeradorDePatosFundo.paused = false
+	$GeradorAlvosGrama.paused = false
+	get_tree().call_group("patos", "descongelar")

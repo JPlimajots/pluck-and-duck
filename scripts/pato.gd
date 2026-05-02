@@ -14,6 +14,7 @@ var tempo_decorrido: float = 0.0
 var y_inicial = 0.0
 var tem_onda: bool = false
 var tem_pendulo: bool = false
+var congelado: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,12 +25,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position.x += delta * velocidade
-	tempo_decorrido += delta
-	if tem_onda:
-		position.y = y_inicial + (sin(tempo_decorrido * velocidade_onda) * amplitude_onda)
-	if tem_pendulo:
-		$DobradicaPivo.rotation_degrees = sin(tempo_decorrido * velocidade_pendulo) * angulo_pendulo 
+	if not congelado:
+		position.x += delta * velocidade
+		tempo_decorrido += delta
+		if tem_onda:
+			position.y = y_inicial + (sin(tempo_decorrido * velocidade_onda) * amplitude_onda)
+		if tem_pendulo:
+			$DobradicaPivo.rotation_degrees = sin(tempo_decorrido * velocidade_pendulo) * angulo_pendulo 
+			pass
 
 
 func morrer():
@@ -76,3 +79,11 @@ func animar_queda_tras():
 	var tween = create_tween()
 	tween.tween_property($DobradicaPivo, "scale:y", 0.0, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property(self, "modulate", Color(0.15, 0.15, 0.15, 1.0), 0.2)
+
+
+func congelar():
+	congelado = true
+
+
+func descongelar():
+	congelado = false
