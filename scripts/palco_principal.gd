@@ -28,6 +28,15 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	var mouse_position = get_viewport().get_mouse_position()
+	var tela_y = get_viewport_rect().size.y
+	var centro_x = get_viewport_rect().size.x / 2.0
+	var escala_alvo = -1.0 if mouse_position.x > centro_x else 1.0
+	$HUD/RifleVisual.scale.x = lerp($HUD/RifleVisual.scale.x, escala_alvo, 15.0 * delta)
+	var angulo_alvo = remap(mouse_position.y, 0, tela_y, 15.0, -10.0)
+	if escala_alvo == -1.0:
+		angulo_alvo = -angulo_alvo
+	$HUD/RifleVisual.rotation_degrees = lerp($HUD/RifleVisual.rotation_degrees, angulo_alvo, 10.0 * delta)	
 	if jogo_ativo:
 		tempo_restante -= delta
 		var segundos = int(ceil(tempo_restante))

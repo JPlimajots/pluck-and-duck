@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://sjnduc3s8ruy" path="res://scenes/pato.tscn" id="14_ogqwy"]
 [ext_resource type="FontFile" uid="uid://b2mf25l5dvmn5" path="res://assets/fonts/Bumper Pixel Stroke.ttf" id="15_1buyy"]
 [ext_resource type="Texture2D" uid="uid://0uqm0mxe1yxq" path="res://assets/HUD/icon_bullet_gold_short.png" id="16_ebexg"]
+[ext_resource type="Texture2D" uid="uid://u6olj2wru4js" path="res://assets/Objects/rifle.png" id="18_mybgg"]
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
 script = ExtResource("1_76are")
@@ -296,6 +297,12 @@ texture = ExtResource("16_ebexg")
 [node name="Bala3" type="TextureRect" parent="HUD/MarginContainer/MunicaoUI" unique_id=671818251]
 layout_mode = 2
 texture = ExtResource("16_ebexg")
+
+[node name="RifleVisual" type="Sprite2D" parent="HUD" unique_id=40248702]
+position = Vector2(500, 700)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("18_mybgg")
+offset = Vector2(40, -40)
 
 [connection signal="alvo_atingido" from="Mira" to="." method="_on_mira_alvo_atingido"]
 [connection signal="timeout" from="GeradorDePatos" to="." method="_on_gerador_de_patos_timeout"]
