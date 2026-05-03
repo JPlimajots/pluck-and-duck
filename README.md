@@ -37,7 +37,7 @@ O escopo do projeto foi estruturado em fases de complexidade progressiva para ga
   * Instanciação dinâmica de cenas via código.
   * Desenvolvimento do *Heads-Up Display* (HUD) para exibição de pontuação.
 
-* [ ] **Fase 5: A Identidade (A Diversão)**
+* [x] **Fase 5: A Identidade (A Diversão)**
   * Desenvolvimento e implementação de diferentes tipos de alvos com comportamentos e atributos variados.
   * Criação de sistemas de efeitos e mecânicas de risco/recompensa para aumentar a dinâmica da galeria.
 
