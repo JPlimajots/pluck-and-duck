@@ -46,6 +46,7 @@ func _ready() -> void:
 	$Mira.explosao_acionada.connect(_on_explosao_acionada)
 	$Mira.congelamento_acionado.connect(_on_congelamento_acionado)
 	$Mira.frenzy_acionado.connect(_on_frenzy_acionado)
+	$Mira.combo_atualizado.connect(_on_mira_combo_atualizado)
 	$Mira.arma_travada = true
 	var visor_msg = $HUD/MensagemCentroUI
 	visor_msg.texture = text_ready
@@ -101,7 +102,7 @@ func _on_gerador_de_patos_timeout() -> void:
 	var velocidade_dificil = remap(tempo_restante, 60.0, 0.0, velocidade_base, velocidade_base + 150.0)
 	novo_pato.velocidade = velocidade_dificil
 	add_child(novo_pato)
-	var base = remap(tempo_restante, 60.0, 0.0, 3.0, 0.8)
+	var base = remap(tempo_restante, 60.0, 0.0, 1.5, 0.4)
 	$GeradorDePatos.wait_time = randf_range(base * 0.7, base * 1.3)
 
 
@@ -161,7 +162,7 @@ func _on_gerador_de_patos_fundo_timeout() -> void:
 	var velocidade_fundo = remap(tempo_restante, 60.0, 0.0, velocidade_base, velocidade_base + 200.0)
 	novo_pato.velocidade = velocidade_fundo
 	add_child(novo_pato)
-	var base_fundo = remap(tempo_restante, 60.0, 0.0, 4.0, 1.2)
+	var base_fundo = remap(tempo_restante, 60.0, 0.0, 2.0, 0.6)
 	$GeradorDePatosFundo.wait_time = randf_range(base_fundo * 0.8, base_fundo * 1.5)
 
 
@@ -184,7 +185,7 @@ func _on_gerador_alvos_grama_timeout() -> void:
 	novo_alvo.z_index = GameLayers.Layers.ALVO
 	novo_alvo.tempo_de_vida = remap(tempo_restante, 60.0, 0.0, 3.0, 1.0)
 	add_child(novo_alvo)
-	var tempo_base_spawn = remap(tempo_restante, 60.0, 0.0, 6.0, 2.0)
+	var tempo_base_spawn = remap(tempo_restante, 60.0, 0.0, 3.0, 1.0)
 	$GeradorAlvosGrama.wait_time = randf_range(tempo_base_spawn * 0.8, tempo_base_spawn * 1.5)
 
 
@@ -248,8 +249,30 @@ func _on_congelamento_acionado():
 
 
 func _on_frenzy_acionado():
-	multiplicador_de_pontos = 2
+	$Mira.frenzy_ativo = true
 	$HUD/ContadorPontosUI/TextoPontos.modulate = Color(1, 0.2, 0.2)
 	await get_tree().create_timer(5.0).timeout
-	multiplicador_de_pontos = 1
-	$HUD/ContadorPontosUI/TextoPontos.modulate = Color(1, 1, 1)
+	$Mira.frenzy_ativo = false
+	var nivel_atual = floor($Mira.combo_atual / 6)
+	$HUD/ContadorPontosUI/TextoPontos.modulate = $Mira.obter_cor_combo(nivel_atual)
+
+
+func _on_mira_combo_atualizado(valor: int, _multiplicador: int):
+	var label_pontos = $HUD/ContadorPontosUI/TextoPontos
+	@warning_ignore("integer_division")
+	var nivel = floor(valor / 6)
+	var cor_alvo = $Mira.obter_cor_combo(nivel)
+	label_pontos.modulate = cor_alvo
+	if nivel > 0:
+		tremer_score(nivel)
+
+
+func tremer_score(intensidade: int):
+	var label = $HUD/ContadorPontosUI
+	var original_pos = label.position
+	var forca = intensidade * 5.0
+	var tween = create_tween()
+	for i in range(5):
+		var offset = Vector2(randf_range(-forca, forca), randf_range(-forca, forca))
+		tween.tween_property(label, "position", original_pos + offset, 0.03)
+	tween.tween_property(label, "position", original_pos, 0.03)
