@@ -1,6 +1,8 @@
 extends Area2D
 class_name  Arma
 
+@onready var cena_texto_flutuante = preload("res://scenes/texto_flutuante.tscn")
+
 var municao_max: int = 3
 var municao_atual: int = municao_max
 var arma_travada: bool = true
@@ -45,8 +47,10 @@ func acertou_tiro_pato():
 			var bonus = area.get("tempo_bonus") if area.get("tempo_bonus") != null else 0.0
 			if area.get("penaliza_vida") == true:
 				vida_perdida.emit()
+				mostrar_pontos_flutuantes(0, area.global_position, Color(1, 0, 0))
 			else:
 				alvo_atingido.emit(pontos)
+				mostrar_pontos_flutuantes(pontos, area.global_position, Color(1, 0.8, 0.0))
 				if bonus > 0.0:
 					tempo_adicionado.emit(bonus)
 			area.morrer()
@@ -63,6 +67,7 @@ func acertou_tiro_pato():
 				frenzy_acionado.emit()
 			else:
 				alvo_atingido.emit(pontos_alvo)
+				mostrar_pontos_flutuantes(pontos_alvo, area.global_position, Color(1, 0.8, 0.0))
 			area.morrer()
 			break
 		elif area.is_in_group("tabuas"):
@@ -74,3 +79,11 @@ func recarregar_arma():
 	municao_atual = municao_max
 	municao_alterada.emit(municao_atual)
 	$SomRecarga.play()
+
+
+func mostrar_pontos_flutuantes(pontos: int, pos: Vector2, cor:Color = Color(1, 1, 1)):
+	var texto = cena_texto_flutuante.instantiate()
+	texto.valor = "+" +str(pontos)
+	texto.global_position = pos
+	texto.modulate = cor
+	get_tree().current_scene.add_child(texto)
