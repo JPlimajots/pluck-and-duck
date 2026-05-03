@@ -10,19 +10,28 @@
 [ext_resource type="Texture2D" uid="uid://bhmwbg5oohmrv" path="res://assets/Stall/curtain.png" id="3_spwae"]
 [ext_resource type="Texture2D" uid="uid://bqat60ja0g26n" path="res://assets/HUD/icon_bullet_empty_short.png" id="4_4qqe5"]
 [ext_resource type="Texture2D" uid="uid://c3svalpkmxdik" path="res://assets/Stall/tree_pine.png" id="4_76are"]
+[ext_resource type="Texture2D" uid="uid://bdhlnn5t3sfd7" path="res://assets/HUD/text_ready.png" id="4_jjmgi"]
 [ext_resource type="Texture2D" uid="uid://dupu2q3tom1hg" path="res://assets/Stall/water1.png" id="4_rsoic"]
 [ext_resource type="Texture2D" uid="uid://dvgreq6i8x43p" path="res://assets/Stall/curtain_rope.png" id="5_j61tm"]
+[ext_resource type="Texture2D" uid="uid://csy0w8f88crjk" path="res://assets/HUD/text_go.png" id="5_rlvh5"]
 [ext_resource type="Texture2D" uid="uid://1jlamsjrhp8q" path="res://assets/Stall/curtain_top.png" id="6_76are"]
+[ext_resource type="Texture2D" uid="uid://hqpp8m8pomn3" path="res://assets/HUD/text_timeup.png" id="6_tbo4c"]
+[ext_resource type="Texture2D" uid="uid://c868jlq2j6iph" path="res://assets/HUD/text_gameover.png" id="7_qmfak"]
 [ext_resource type="PackedScene" uid="uid://drd3u8s0iouha" path="res://scenes/mira.tscn" id="13_trvxo"]
 [ext_resource type="FontFile" uid="uid://b2mf25l5dvmn5" path="res://assets/fonts/Bumper Pixel Stroke.ttf" id="15_1buyy"]
 [ext_resource type="Texture2D" uid="uid://0uqm0mxe1yxq" path="res://assets/HUD/icon_bullet_gold_short.png" id="16_ebexg"]
 [ext_resource type="Texture2D" uid="uid://bvmflabmuwvau" path="res://assets/HUD/icon_duck.png" id="17_mybgg"]
 [ext_resource type="Texture2D" uid="uid://u6olj2wru4js" path="res://assets/Objects/rifle.png" id="18_mybgg"]
+[ext_resource type="Texture2D" uid="uid://pnj8upviy6s3" path="res://assets/HUD/text_score.png" id="22_rlvh5"]
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
 script = ExtResource("1_76are")
 texture_bala_cheia = ExtResource("16_ebexg")
 texture_bala_vazia = ExtResource("4_4qqe5")
+text_ready = ExtResource("4_jjmgi")
+text_go = ExtResource("5_rlvh5")
+text_timeup = ExtResource("6_tbo4c")
+text_gameover = ExtResource("7_qmfak")
 
 [node name="Cenario" type="Control" parent="." unique_id=242326829]
 layout_mode = 3
@@ -317,6 +326,53 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MensagemCentroUI" type="TextureRect" parent="HUD" unique_id=1910555299]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -72.0
+offset_right = 116.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 5
+
+[node name="ResultadoFinal" type="VBoxContainer" parent="HUD" unique_id=1259722419]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ScoreTituloUI" type="TextureRect" parent="HUD/ResultadoFinal" unique_id=46991096]
+layout_mode = 2
+texture = ExtResource("22_rlvh5")
+stretch_mode = 3
+
+[node name="PontosFinalLabel" type="Label" parent="HUD/ResultadoFinal" unique_id=874126877]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.2901961, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("15_1buyy")
+theme_override_font_sizes/font_size = 70
+horizontal_alignment = 1
 
 [node name="RifleVisual" type="Sprite2D" parent="HUD" unique_id=40248702]
 position = Vector2(500, 700)

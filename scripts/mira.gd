@@ -3,6 +3,7 @@ class_name  Arma
 
 static var municao_max: int = 3
 static var municao_atual: int = municao_max
+var arma_travada: bool = true
 
 signal alvo_atingido(pontos_ganhos: int)
 signal municao_alterada(quantidade_atual: int)
@@ -22,16 +23,17 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		global_position = event.position
 	elif event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if municao_atual > 0:
-				municao_atual -= 1
-				municao_alterada.emit(municao_atual)
-				$SomTiro.play()
-				acertou_tiro_pato()
-			else:
-				$SomVazio.play()
-		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			recarregar_arma()
+		if not arma_travada:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				if municao_atual > 0:
+					municao_atual -= 1
+					municao_alterada.emit(municao_atual)
+					$SomTiro.play()
+					acertou_tiro_pato()
+				else:
+					$SomVazio.play()
+			elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+				recarregar_arma()
 
 
 func acertou_tiro_pato():

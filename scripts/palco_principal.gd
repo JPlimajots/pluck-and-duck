@@ -11,6 +11,11 @@ extends Node2D
 @onready var cena_alvo_frenzy = preload("res://scenes/alvo_frenzy.tscn")
 @export var texture_bala_cheia: Texture2D
 @export var texture_bala_vazia: Texture2D
+@export var text_ready: Texture2D
+@export var text_go: Texture2D
+@export var text_timeup: Texture2D
+@export var text_gameover: Texture2D
+@export var text_score: Texture2D
 
 var pontuacao_atual: int = 0
 var tempo_restante: float = 60.0
@@ -40,6 +45,16 @@ func _ready() -> void:
 	$Mira.explosao_acionada.connect(_on_explosao_acionada)
 	$Mira.congelamento_acionado.connect(_on_congelamento_acionado)
 	$Mira.frenzy_acionado.connect(_on_frenzy_acionado)
+	$Mira.arma_travada = true
+	var visor_msg = $HUD/MensagemCentroUI
+	visor_msg.texture = text_ready
+	visor_msg.show()
+	await get_tree().create_timer(1.5).timeout
+	visor_msg.texture = text_go
+	jogo_ativo = true
+	$Mira.arma_travada = false
+	await  get_tree().create_timer(1.0).timeout
+	visor_msg.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -93,14 +108,29 @@ func _on_mira_alvo_atingido(pontos_ganhos: int) -> void:
 	$Interface/TextoPontos.text = str(pontuacao_atual)
 
 
-func finaliza_jogo():
+func finaliza_jogo(vitoria: bool = true):
 	jogo_ativo = false
 	tempo_restante = 0
 	$Interface/TextoTempo.text = "00"
+	$Mira.arma_travada = true
 	$GeradorDePatos.stop()
 	$GeradorDePatosFundo.stop()
 	$GeradorAlvosGrama.stop()
-	print("FIM DE JOGO! Pontuação Final: ", pontuacao_atual)
+	if vitoria:
+		var visor_msg = $HUD/MensagemCentroUI
+		visor_msg.texture = text_timeup
+		visor_msg.show()
+		await get_tree().create_timer(2.5).timeout
+		visor_msg.hide()
+		$Interface/TextoPontos.hide()
+		$HUD/ResultadoFinal/PontosFinalLabel.text = str(pontuacao_atual)
+		$HUD/ResultadoFinal.show()
+		var container_final = $HUD/ResultadoFinal
+		container_final.scale = Vector2.ZERO
+		container_final.pivot_offset = container_final.size
+		var tween = create_tween()
+		tween.tween_property(container_final, "scale", Vector2(1.2, 1.2), 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tween.tween_property(container_final, "scale", Vector2.ONE, 0.1)
 
 
 func _on_gerador_de_patos_fundo_timeout() -> void:
@@ -168,7 +198,10 @@ func _on_vida_perdida():
 		var patinho_ui = $HUD/ContainerVidas.get_child(vidas_atuais)
 		patinho_ui.visible = false
 	if vidas_atuais <= 0:
-		print("GAME OVER!")
+		$HUD/MensagemCentroUI.texture = text_gameover
+		$HUD/MensagemCentroUI.show()
+		finaliza_jogo(false)
+		
 
 
 func _on_explosao_acionada():
