@@ -22,6 +22,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		global_position = event.position
+		$CamadaVisual/mira.global_position = event.position
 	elif event is InputEventMouseButton:
 		if not arma_travada:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:

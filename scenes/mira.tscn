@@ -15,7 +15,10 @@ script = ExtResource("1_y581g")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1572133656]
 shape = SubResource("CircleShape2D_hcfyb")
 
-[node name="mira" type="Sprite2D" parent="." unique_id=667896464]
+[node name="CamadaVisual" type="CanvasLayer" parent="." unique_id=325863852]
+layer = 2
+
+[node name="mira" type="Sprite2D" parent="CamadaVisual" unique_id=667896464]
 texture = ExtResource("1_vgtru")
 
 [node name="SomTiro" type="AudioStreamPlayer" parent="." unique_id=1547521491]

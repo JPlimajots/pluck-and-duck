@@ -17,6 +17,4 @@ enum Layers {
 	CORTINA_STRAIGHT = 4, 
 	CORTINA_ROPE = 4,
 	MIRA = 5,
-	UI = 5,
-	HUD = 5
 }

@@ -23,6 +23,7 @@ var jogo_ativo: bool = true
 var vidas_atuais: int = 3
 var relogio_congelado: bool = false
 var multiplicador_de_pontos: int = 1
+var pode_reiniciar: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -82,6 +83,9 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
+	elif event is InputEventKey and event.keycode == KEY_R and event.pressed:
+		if  pode_reiniciar:
+			get_tree().reload_current_scene()
 
 
 func _on_gerador_de_patos_timeout() -> void:
@@ -105,7 +109,7 @@ func _on_gerador_de_patos_timeout() -> void:
 func _on_mira_alvo_atingido(pontos_ganhos: int) -> void:
 	var pontos_finais = pontos_ganhos * multiplicador_de_pontos
 	pontuacao_atual += pontos_finais
-	$Interface/TextoPontos.text = str(pontuacao_atual)
+	$HUD/ContadorPontosUI/TextoPontos.text = str(pontuacao_atual)
 
 
 func finaliza_jogo(vitoria: bool = true):
@@ -122,7 +126,7 @@ func finaliza_jogo(vitoria: bool = true):
 		visor_msg.show()
 		await get_tree().create_timer(2.5).timeout
 		visor_msg.hide()
-		$Interface/TextoPontos.hide()
+		$HUD/ContadorPontosUI.hide()
 		$HUD/ResultadoFinal/PontosFinalLabel.text = str(pontuacao_atual)
 		$HUD/ResultadoFinal.show()
 		var container_final = $HUD/ResultadoFinal
@@ -131,6 +135,13 @@ func finaliza_jogo(vitoria: bool = true):
 		var tween = create_tween()
 		tween.tween_property(container_final, "scale", Vector2(1.2, 1.2), 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		tween.tween_property(container_final, "scale", Vector2.ONE, 0.1)
+	else:
+		$HUD/ResultadoFinal/ScoreTituloUI.hide()
+		$HUD/ResultadoFinal/PontosFinalLabel.hide()
+		$HUD/ResultadoFinal/TextoReiniciar.show()
+		$HUD/ResultadoFinal.show()
+		$HUD/ResultadoFinal.scale = Vector2.ONE
+	pode_reiniciar = true
 
 
 func _on_gerador_de_patos_fundo_timeout() -> void:
@@ -239,7 +250,7 @@ func _on_congelamento_acionado():
 
 func _on_frenzy_acionado():
 	multiplicador_de_pontos = 2
-	$Interface/TextoPontos.modulate = Color(1, 0.8, 0)
+	$HUD/ContadorPontosUI/TextoPontos.modulate = Color(1, 0.2, 0.2)
 	await get_tree().create_timer(5.0).timeout
 	multiplicador_de_pontos = 1
-	$Interface/TextoPontos.modulate = Color(1, 1, 1)
+	$HUD/ContadorPontosUI/TextoPontos.modulate = Color(1, 1, 1)
