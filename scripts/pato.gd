@@ -32,11 +32,11 @@ func _process(delta: float) -> void:
 			position.y = y_inicial + (sin(tempo_decorrido * velocidade_onda) * amplitude_onda)
 		if tem_pendulo:
 			$DobradicaPivo.rotation_degrees = sin(tempo_decorrido * velocidade_pendulo) * angulo_pendulo 
-			pass
 
 
 func morrer():
 	$CollisionShape2D.set_deferred("disabled", true)
+	$CollisionShape2D2.set_deferred("disabled", true)
 	$DobradicaPivo/AreaTabua/CollisionShape2D.set_deferred("disabled", true)
 	if randf() > 0.5:
 		animar_giro_180()
@@ -68,11 +68,11 @@ func virar_de_costas():
 
 
 func animar_giro_180():
-	var tamanho_origianl = abs(scale.x)
+	var tamanho_original = abs(scale.x)
 	var tween = create_tween()
 	tween.tween_property(self, "scale:x", 0.0, 0.10).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(virar_de_costas)
-	tween.tween_property(self, "scale:x", -tamanho_origianl, 0.10).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "scale:x", -tamanho_original, 0.10).set_trans(Tween.TRANS_SINE)
 
 
 func animar_queda_tras():

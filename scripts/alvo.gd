@@ -1,7 +1,7 @@
 extends Area2D
 
 
-@export var textura_tabua_quebrada = Texture2D
+@export var textura_tabua_quebrada: Texture2D
 @export var tempo_de_vida: float = 3.0
 @export var pontos_abate: int = 50
 @export var explosivo: bool = false
@@ -18,11 +18,6 @@ func _ready() -> void:
 	tween.parallel().tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.3)
 	tween.tween_interval(tempo_de_vida)
 	tween.tween_callback(fugir)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func morrer():

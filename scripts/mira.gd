@@ -1,8 +1,8 @@
 extends Area2D
 class_name  Arma
 
-static var municao_max: int = 3
-static var municao_atual: int = municao_max
+var municao_max: int = 3
+var municao_atual: int = municao_max
 var arma_travada: bool = true
 
 signal alvo_atingido(pontos_ganhos: int)
@@ -50,6 +50,7 @@ func acertou_tiro_pato():
 				if bonus > 0.0:
 					tempo_adicionado.emit(bonus)
 			area.morrer()
+			break
 		elif area.is_in_group("alvos"):
 			var pontos_alvo = area.get("pontos_abate") if area.get("pontos_abate") != null else 10
 			if area.get("explosivo") == true:
@@ -63,8 +64,10 @@ func acertou_tiro_pato():
 			else:
 				alvo_atingido.emit(pontos_alvo)
 			area.morrer()
+			break
 		elif area.is_in_group("tabuas"):
 			area.get_parent().get_parent().quebrar_tabua()
+			break
 
 
 func recarregar_arma():

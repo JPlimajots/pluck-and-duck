@@ -19,7 +19,7 @@ extends Node2D
 
 var pontuacao_atual: int = 0
 var tempo_restante: float = 60.0
-var jogo_ativo: bool = true
+var jogo_ativo: bool = false
 var vidas_atuais: int = 3
 var relogio_congelado: bool = false
 var multiplicador_de_pontos: int = 1
@@ -52,10 +52,10 @@ func _ready() -> void:
 	visor_msg.show()
 	await get_tree().create_timer(1.5).timeout
 	visor_msg.texture = text_go
-	jogo_ativo = true
-	$Mira.arma_travada = false
 	await  get_tree().create_timer(1.0).timeout
 	visor_msg.hide()
+	jogo_ativo = true
+	$Mira.arma_travada = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -77,7 +77,6 @@ func _process(delta: float) -> void:
 				$GeradorAlvosGrama.start(randf_range(1.5, 4.0))
 			if tempo_restante <= 0:
 				finaliza_jogo()
-			pass
 
 
 func _input(event: InputEvent):

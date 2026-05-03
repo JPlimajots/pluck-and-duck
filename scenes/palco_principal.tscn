@@ -261,7 +261,7 @@ theme_override_constants/outline_size = 6
 theme_override_constants/shadow_outline_size = 2
 theme_override_fonts/font = ExtResource("15_1buyy")
 theme_override_font_sizes/font_size = 40
-text = "000"
+text = "60"
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1519101987]
 
