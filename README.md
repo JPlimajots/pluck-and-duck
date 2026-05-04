@@ -41,7 +41,7 @@ O escopo do projeto foi estruturado em fases de complexidade progressiva para ga
   * Desenvolvimento e implementação de diferentes tipos de alvos com comportamentos e atributos variados.
   * Criação de sistemas de efeitos e mecânicas de risco/recompensa para aumentar a dinâmica da galeria.
 
-* [ ] **Fase 6: Polimento (O “Juice”)**
+* [x] **Fase 6: Polimento (O “Juice”)**
   * **Design Sonoro:** Implementação de camadas de áudio dinâmicas (tiros, grasnados, acertos metálicos e sinalização de pontuação).
   * **Feedback Visual Reativo:** Criação de micro-interações na UI (como animações de escala na pontuação) para reforçar o impacto das ações.
   * **Gerenciamento de Estados de Jogo:** Implementação de fluxos de partida (telas de "READY?", "GO!" e interrupção de inputs no "TIME UP!").
