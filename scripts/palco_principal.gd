@@ -16,6 +16,7 @@ extends Node2D
 @export var text_timeup: Texture2D
 @export var text_gameover: Texture2D
 @export var text_score: Texture2D
+@export var modo_menu: bool = false
 
 var pontuacao_atual: int = 0
 var tempo_restante: float = 60.0
@@ -50,6 +51,13 @@ func _ready() -> void:
 	$Mira.frenzy_acionado.connect(_on_frenzy_acionado)
 	$Mira.combo_atualizado.connect(_on_mira_combo_atualizado)
 	$Mira.arma_travada = true
+	if modo_menu:
+		$Mira.hide()
+		$HUD.hide()
+		$Interface.hide()
+		$Mira/CamadaVisual.hide()
+		$Mira.arma_travada = true
+		return
 	var visor_msg = $HUD/MensagemCentroUI
 	visor_msg.texture = text_ready
 	visor_msg.show()
