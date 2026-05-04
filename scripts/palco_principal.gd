@@ -40,6 +40,8 @@ func _ready() -> void:
 	$Cenario/curtain_straight.z_index = GameLayers.Layers.CORTINA_STRAIGHT
 	$Cenario/curtain_rope_left.z_index = GameLayers.Layers.CORTINA_ROPE
 	$Cenario/curtain_rope_right.z_index = GameLayers.Layers.CORTINA_ROPE
+	$TimerQuack.timeout.connect(_on_timer_quack_timeout)
+	$TimerQuack.start(randf_range(3.0, 7.0))
 	$Mira.municao_alterada.connect(atualizar_interface_municao)
 	$Mira.tempo_adicionado.connect(_on_tempo_adicionado)
 	$Mira.vida_perdida.connect(_on_vida_perdida)
@@ -142,6 +144,8 @@ func finaliza_jogo(vitoria: bool = true):
 		$HUD/ResultadoFinal.show()
 		$HUD/ResultadoFinal.scale = Vector2.ONE
 	pode_reiniciar = true
+	var tween_som = create_tween()
+	tween_som.tween_property($MusicaFundo, "volume_db", -20.0, 1.5)
 
 
 func _on_gerador_de_patos_fundo_timeout() -> void:
@@ -216,6 +220,7 @@ func _on_vida_perdida():
 
 
 func _on_explosao_acionada():
+	$SomExplosao.play()
 	var flash = $HUD/FlashExplosao
 	var tween = create_tween()
 	tween.tween_property(flash, "modulate:a", 0.4, 0.05)
@@ -235,12 +240,22 @@ func _on_explosao_acionada():
 
 
 func _on_congelamento_acionado():
+	$SomTimeStop.play()
+	var label_tempo = $Interface/TextoTempo
+	label_tempo.modulate = Color(0.3, 0.5, 1.0)
 	relogio_congelado = true
 	$GeradorDePatos.paused = true
 	$GeradorDePatosFundo.paused = true
 	$GeradorAlvosGrama.paused = true
 	get_tree().call_group("patos", "congelar")
-	await get_tree().create_timer(3.5).timeout
+	await get_tree().create_timer(2.5).timeout
+	var tween = create_tween()
+	tween.tween_property(label_tempo, "modulate:a", 0.3, 0.2)
+	tween.tween_property(label_tempo, "modulate:a", 1.0, 0.2)
+	tween.set_loops(2)
+	$SomTimeStopReverse.play()
+	await get_tree().create_timer(1.0).timeout
+	label_tempo.modulate = Color(1, 1, 1)
 	relogio_congelado = false
 	$GeradorDePatos.paused = false
 	$GeradorDePatosFundo.paused = false
@@ -249,6 +264,7 @@ func _on_congelamento_acionado():
 
 
 func _on_frenzy_acionado():
+	$SomFrenzy.play()
 	$Mira.frenzy_ativo = true
 	$HUD/ContadorPontosUI/TextoPontos.modulate = Color(1, 0.2, 0.2)
 	await get_tree().create_timer(5.0).timeout
@@ -276,3 +292,9 @@ func tremer_score(intensidade: int):
 		var offset = Vector2(randf_range(-forca, forca), randf_range(-forca, forca))
 		tween.tween_property(label, "position", original_pos + offset, 0.03)
 	tween.tween_property(label, "position", original_pos, 0.03)
+
+
+func _on_timer_quack_timeout():
+	if jogo_ativo:
+		$SomQuack.play()
+	$TimerQuack.start(randf_range(4.0, 10.0))

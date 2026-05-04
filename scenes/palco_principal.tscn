@@ -25,6 +25,12 @@
 [ext_resource type="Texture2D" uid="uid://pnj8upviy6s3" path="res://assets/HUD/text_score.png" id="22_rlvh5"]
 [ext_resource type="FontFile" uid="uid://dsvjwo5mfchws" path="res://assets/fonts/PressStart2P-Regular.ttf" id="23_qmfak"]
 [ext_resource type="Texture2D" uid="uid://ddlgugun0fk7g" path="res://assets/HUD/text_score_small.png" id="23_tbo4c"]
+[ext_resource type="AudioStream" uid="uid://iacejaiaxbw3" path="res://assets/audio/game_loop.wav" id="26_ihuvc"]
+[ext_resource type="AudioStream" uid="uid://dyhhcmlxufkcm" path="res://assets/audio/explosion.wav" id="27_pjf2w"]
+[ext_resource type="AudioStream" uid="uid://qab0o2ikfvyk" path="res://assets/audio/frenzy.wav" id="28_sbj4r"]
+[ext_resource type="AudioStream" uid="uid://c2ybk4ha4urrm" path="res://assets/audio/time_stop.wav" id="29_fl67q"]
+[ext_resource type="AudioStream" uid="uid://cel1yyevfos7k" path="res://assets/audio/quack.wav" id="30_20yll"]
+[ext_resource type="AudioStream" uid="uid://c1i5f36o3pti1" path="res://assets/audio/time_stop_reverse.wav" id="30_pjf2w"]
 
 [node name="PalcoPrincipal" type="Node2D" unique_id=1145485412]
 script = ExtResource("1_76are")
@@ -407,6 +413,29 @@ position = Vector2(500, 700)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("18_mybgg")
 offset = Vector2(40, -40)
+
+[node name="MusicaFundo" type="AudioStreamPlayer" parent="." unique_id=731248662]
+stream = ExtResource("26_ihuvc")
+autoplay = true
+
+[node name="SomExplosao" type="AudioStreamPlayer" parent="." unique_id=1816418577]
+stream = ExtResource("27_pjf2w")
+volume_db = -10.0
+
+[node name="SomFrenzy" type="AudioStreamPlayer" parent="." unique_id=1931263903]
+stream = ExtResource("28_sbj4r")
+
+[node name="SomTimeStop" type="AudioStreamPlayer" parent="." unique_id=1671579891]
+stream = ExtResource("29_fl67q")
+
+[node name="SomTimeStopReverse" type="AudioStreamPlayer" parent="." unique_id=1256193315]
+stream = ExtResource("30_pjf2w")
+
+[node name="SomQuack" type="AudioStreamPlayer" parent="." unique_id=1982709045]
+stream = ExtResource("30_20yll")
+volume_db = 10.0
+
+[node name="TimerQuack" type="Timer" parent="." unique_id=472293501]
 
 [connection signal="alvo_atingido" from="Mira" to="." method="_on_mira_alvo_atingido"]
 [connection signal="timeout" from="GeradorDePatos" to="." method="_on_gerador_de_patos_timeout"]

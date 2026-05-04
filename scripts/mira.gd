@@ -37,9 +37,17 @@ func _input(event: InputEvent) -> void:
 					$SomTiro.play()
 					var acertou = acertou_tiro_pato()
 					if acertou:
+						var nivel_antes = floor(combo_atual / 6)
 						combo_atual += 1
-					elif not frenzy_ativo:
+						var nivel_depois = floor(combo_atual / 6)
+						if nivel_depois > nivel_antes:
+							$SomComboUp.play()
+					else:
+						if not frenzy_ativo:
+							if combo_atual > 0:
+								$SomComboLost.play()
 						combo_atual = 0
+					@warning_ignore("integer_division")
 					var nivel_combo = floor(combo_atual / 6)
 					var mult_combo = pow(2, nivel_combo)
 					combo_atualizado.emit(combo_atual, mult_combo)
@@ -51,6 +59,7 @@ func _input(event: InputEvent) -> void:
 
 func acertou_tiro_pato():
 	var areas = get_overlapping_areas()
+	@warning_ignore("integer_division")
 	var nivel_combo = floor(combo_atual / 6)
 	var mult_combo = pow(2, nivel_combo)
 	var mult_final = mult_combo * (2 if frenzy_ativo else 1)

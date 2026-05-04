@@ -2,9 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://d0ylxbedhiosn" path="res://assets/HUD/crosshair_outline_large.png" id="1_vgtru"]
 [ext_resource type="Script" uid="uid://dhnoune1vtsls" path="res://scripts/mira.gd" id="1_y581g"]
-[ext_resource type="AudioStream" uid="uid://p3qbner0oph8" path="res://assets/audio/poupou.wav" id="3_hcfyb"]
-[ext_resource type="AudioStream" uid="uid://da6og46w0r2ct" path="res://assets/audio/click.wav" id="4_acfey"]
-[ext_resource type="AudioStream" uid="uid://csxoo4agija5j" path="res://assets/audio/recarga.wav" id="5_ex0sk"]
+[ext_resource type="AudioStream" uid="uid://boa26rucs7orf" path="res://assets/audio/tiro.wav" id="3_hcfyb"]
+[ext_resource type="AudioStream" uid="uid://c6f7lcvfbnjh8" path="res://assets/audio/vazio.wav" id="4_hcfyb"]
+[ext_resource type="AudioStream" uid="uid://h6j7n1jmvi01" path="res://assets/audio/reload.wav" id="5_hcfyb"]
+[ext_resource type="AudioStream" uid="uid://b0wmk0u3363k3" path="res://assets/audio/combo_up.wav" id="6_ex0sk"]
+[ext_resource type="AudioStream" uid="uid://c3kkob2iu6hr1" path="res://assets/audio/combo_lost.wav" id="7_v1umb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hcfyb"]
 radius = 11.0
@@ -23,11 +25,19 @@ texture = ExtResource("1_vgtru")
 
 [node name="SomTiro" type="AudioStreamPlayer" parent="." unique_id=1547521491]
 stream = ExtResource("3_hcfyb")
+volume_db = -10.0
 max_polyphony = 3
 
 [node name="SomVazio" type="AudioStreamPlayer" parent="." unique_id=1533211922]
-stream = ExtResource("4_acfey")
+stream = ExtResource("4_hcfyb")
 max_polyphony = 10
 
 [node name="SomRecarga" type="AudioStreamPlayer" parent="." unique_id=1541737912]
-stream = ExtResource("5_ex0sk")
+stream = ExtResource("5_hcfyb")
+
+[node name="SomComboUp" type="AudioStreamPlayer" parent="." unique_id=1215872229]
+stream = ExtResource("6_ex0sk")
+
+[node name="SomComboLost" type="AudioStreamPlayer" parent="." unique_id=597023661]
+stream = ExtResource("7_v1umb")
+volume_db = 2.0
